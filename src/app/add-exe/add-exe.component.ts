@@ -3,6 +3,9 @@ import {Exe} from '../exe';
 import {Set} from '../set';
 import {ExeService} from '../exe.service';
 
+// Contains form to add exercise with repeating AddSetComponent, whose number changes depending on user's input, listens to set updated
+// event on each AppSetComponent, updates its own exe object accordingly. When user hits "Add exercise" button, it sends copy of its
+// exe object to ExeService
 @Component({
   selector: 'app-add-exe',
   templateUrl: './add-exe.component.html',

@@ -1,5 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
+
+// Contains form to add an individual set. setIndex property is passed down from host AddExe component. On user input to either field
+// class emits event passing updated values of weight and reps to host AddExe component.
 @Component({
   selector: 'app-add-set',
   templateUrl: './add-set.component.html',

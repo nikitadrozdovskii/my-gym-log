@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Exe} from './exe';
 
+// Facilitates storage of exe objects
 @Injectable({
   providedIn: 'root'
 })

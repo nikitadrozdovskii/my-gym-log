@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Exe} from './exe';
 import {ExeService} from './exe.service';
 
+// Hosts AddExe component with form to add a new exercise, gets array of exercises from ExeService, displays it with ExeDetail component
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
