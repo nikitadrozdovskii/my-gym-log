@@ -3,27 +3,7 @@
   <div class="row">
     <div class="col md-12">
       <hr>
-      <h3>Add exercise</h3>
-      <form>
-      <div class="form-group row">
-        <label for="exerciseName" class="col-md-2 col-form-label">Exercise name</label>
-        <div class="col-md-10">
-          <input type="text" class="form-control" id="exerciseName">
-        </div>
-      </div>
-          <div class="form-group row">
-            <label for="repNumber" class="col-md-2 col-form-label">Rep number</label>
-            <div class="col-md-10">
-              <input type="text" class="form-control" id="repNumber">
-            </div>
-            </div>
-          <div class="form-group row">
-            <label for="weight" class="col-md-2 col-form-label">Weight</label>
-            <div class="col-md-10">
-              <input type="text" class="form-control" id="weight">
-            </div>
-            </div>
-      </form>
+      <app-add-exe></app-add-exe>
       <hr>
       <app-exe-detail *ngFor="let exe of exes" [detailedExe]="exe"></app-exe-detail>
     </div>
