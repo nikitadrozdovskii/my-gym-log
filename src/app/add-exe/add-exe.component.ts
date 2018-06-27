@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
 import {Exe} from '../exe';
 import {Set} from '../set';
 import {ExeService} from '../exe.service';
@@ -11,7 +11,8 @@ import {ExeService} from '../exe.service';
 export class AddExeComponent implements OnInit {
   exe: Exe = {name: 'Bench Press', sets: []};
   numberOfSets: number;
-  // sets: Set[];
+
+
   constructor(private exeService: ExeService) {
     this.numberOfSets = 10;
   }

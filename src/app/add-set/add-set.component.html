@@ -3,12 +3,12 @@
   </div>
   <div class="col-md-5">
     <div class="form-group">
-      <input type="text" class="form-control" id="weight" name="weight" placeholder="weight">
+      <input type="text" class="form-control" id="weight" name="weight" placeholder="weight" (input)="onUserInput({weight: weight.value})" #weight>
     </div>
   </div>
   <div class="col-md-5">
     <div class="form-group">
-      <input type="text" class="form-control" id="reps" name="reps" placeholder="reps">
+      <input type="text" class="form-control" id="reps" name="reps" placeholder="reps" (input)="onUserInput({reps: reps.value})" #reps>
     </div>
   </div>
 </div>
