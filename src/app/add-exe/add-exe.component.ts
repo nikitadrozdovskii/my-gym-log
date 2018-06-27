@@ -20,24 +20,8 @@ export class AddExeComponent implements OnInit{
 
   }
 
-  decreaseSets() {
-    if (this.numberOfSets < 1) {
-      return;
-    }
-    this.numberOfSets--;
-  }
-
-  increaseSets() {
-    if (this.numberOfSets > 19) {
-      return;
-    }
-    this.numberOfSets++;
-  }
-
-  checkSets() {
-    if (this.numberOfSets < 0 || this.numberOfSets > 20) {
-      this.numberOfSets = 0;
-    }
+  changeNumberOfSets(event) {
+    this.numberOfSets = event.target.value;
   }
 
 }
