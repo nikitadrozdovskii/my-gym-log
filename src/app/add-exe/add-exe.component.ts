@@ -38,4 +38,10 @@ export class AddExeComponent implements OnInit {
     // console.log(this.exe);
   }
 
+  onSetUpdated({weight, reps, i}) {
+    this.exe.sets[i].weight = weight;
+    this.exe.sets[i].reps = reps;
+    // console.log(i);
+    // console.log(this.exe.sets[i]);
+  }
 }

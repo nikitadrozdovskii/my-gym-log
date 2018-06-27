@@ -6,9 +6,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./add-set.component.css']
 })
 export class AddSetComponent implements OnInit {
-  @Input() setNumber: number;
+    // @Input() setNumber: number;
   @Input('setIndex') index: number;
-  @Output() setUpdated: EventEmitter<{weight: number, reps: number}> = new EventEmitter<{weight: number, reps: number}>();
+  @Output() setUpdated: EventEmitter<{weight: number, reps: number, i: number}> = new EventEmitter<{weight: number, reps: number, i: number}>();
   weight = 0;
   reps = 0;
 
@@ -24,8 +24,8 @@ export class AddSetComponent implements OnInit {
     if (input.reps) {
       this.reps = input.reps;
     }
-    this.setUpdated.emit({weight: this.weight, reps: this.reps});
-    console.log(`Set index ${this.index} is updated to: weight = ${this.weight}, reps = ${this.reps}`);
+    this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
+    // console.log(`Set index ${this.index} is updated to: weight = ${this.weight}, reps = ${this.reps}`);
   }
 
 }
