@@ -17,4 +17,8 @@ export class ExeService {
       ]}];
 
   constructor() { }
+  add(exe: Exe) {
+    this.exes.push(exe);
+    console.log(this.exes);
+  }
 }

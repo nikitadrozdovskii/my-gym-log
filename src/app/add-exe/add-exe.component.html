@@ -1,5 +1,5 @@
 <h3>Add exercise</h3>
-<form #addExeForm="ngForm" (ngSubmit)="onSubmit()">
+<form #addExeForm="ngForm" >
   <div class="row">
     <div class="col-md-2">
       <div class="form-group">
@@ -13,6 +13,7 @@
       <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)">
     </div>
   </div>
-  <app-add-set *ngFor="let set of sets; let i = index" [setNumber]="i"></app-add-set>
+  <app-add-set *ngFor="let set of exe.sets; let i = index" [setNumber]="i"></app-add-set>
+  <button class="btn btn-primary" (click)="onSubmit()">Add exercise</button>
 </form>
 
