@@ -1,4 +1,7 @@
+import {Set} from './set';
+
+
 export class Exe {
   name: string;
-  reps: number[];
+  sets: Set[];
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Exe} from '../exe';
+import {Set} from '../set';
 
 @Component({
   selector: 'app-exe-detail',
@@ -9,7 +10,7 @@ import {Exe} from '../exe';
 export class ExeDetailComponent implements OnInit {
   exe: Exe = {
     name: 'Bench Press',
-    reps: [10, 9, 9]
+    sets: [{reps: 10, weight: 50}, {reps: 10, weight: 53}, {reps: 10, weight: 55}]
   }
   constructor() { }
 
