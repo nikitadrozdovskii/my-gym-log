@@ -1,18 +1,18 @@
 <h3>Add exercise</h3>
 <form #addExeForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-2">
       <div class="form-group">
         <label for="exerciseName" class="form-label">Exercise name:</label>
         <input type="text" class="form-control" id="exerciseName" [(ngModel)]="exe.name" name="name">
         <h5>{{exe.name}}</h5>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-10">
       <label for="customRange2">Number of sets: {{numberOfSets}}</label>
       <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)">
     </div>
   </div>
-  <app-add-set></app-add-set>
+  <app-add-set *ngFor="let set of sets; let i = index" [setNumber]="i"></app-add-set>
 </form>
 

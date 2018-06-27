@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-add-set',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-set.component.css']
 })
 export class AddSetComponent implements OnInit {
-
+  @Input() setNumber: number;
   constructor() { }
 
   ngOnInit() {
