@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Exe} from '../exe';
-import {Set} from '../set';
 
 @Component({
   selector: 'app-exe-detail',
@@ -8,13 +7,11 @@ import {Set} from '../set';
   styleUrls: ['./exe-detail.component.css']
 })
 export class ExeDetailComponent implements OnInit {
-  exe: Exe = {
-    name: 'Bench Press',
-    sets: [{reps: 10, weight: 50}, {reps: 10, weight: 53}, {reps: 10, weight: 55}]
-  }
+  @Input('detailedExe') exe: Exe;
   constructor() { }
 
-  ngOnInit() {
-  }
+
+  ngOnInit() {}
+
 
 }

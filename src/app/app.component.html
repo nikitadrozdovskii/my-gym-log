@@ -25,7 +25,7 @@
             </div>
       </form>
       <hr>
-      <app-exe-detail></app-exe-detail>
+      <app-exe-detail *ngFor="let exe of exes" [detailedExe]="exe"></app-exe-detail>
     </div>
   </div>
 </div>
