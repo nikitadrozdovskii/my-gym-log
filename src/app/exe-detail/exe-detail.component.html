@@ -1,5 +1,10 @@
 <div class="card mt-4">
-    <h5 class="card-header">{{exe.name}}</h5>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-6">{{exe.name}}</div>
+        <div class="col-sm-6"><span class="delete-icon fa fa-trash-alt offset-11" (click)="onDeleteExe()"></span></div>
+    </div>
+    </div>
   <div class="card-body">
     <h6 class="card-subtitle mb-2 text-muted">Sets:</h6>
     <ul class="list-group list-group-flush">

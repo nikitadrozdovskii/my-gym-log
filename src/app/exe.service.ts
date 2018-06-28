@@ -22,4 +22,8 @@ export class ExeService {
     this.exes.push(exe);
     console.log(this.exes);
   }
+
+  delete(index: number) {
+    this.exes.splice(index, 1);
+  }
 }
