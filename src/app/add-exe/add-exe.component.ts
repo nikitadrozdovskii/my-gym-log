@@ -12,12 +12,12 @@ import {ExeService} from '../exe.service';
   styleUrls: ['./add-exe.component.css']
 })
 export class AddExeComponent implements OnInit {
-  exe: Exe = {name: 'Bench Press', sets: []};
+  exe: Exe = {name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
   numberOfSets: number;
 
 
   constructor(private exeService: ExeService) {
-    this.numberOfSets = 10;
+    this.numberOfSets = 3;
   }
 
   ngOnInit() {
@@ -26,6 +26,7 @@ export class AddExeComponent implements OnInit {
   onSubmit() {
     const copy = Object.assign({}, this.exe);
     this.exeService.add(copy);
+    console.log(this.exe.sets);
   }
 
   changeNumberOfSets(event) {
