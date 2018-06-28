@@ -20,7 +20,7 @@ export class ExeService {
   constructor() { }
   add(exe: Exe) {
     this.exes.push(exe);
-    console.log(this.exes);
+    console.log(this.exes[this.exes.length-1].sets === this.exes[this.exes.length - 2].sets);
   }
 
   delete(index: number) {

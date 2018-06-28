@@ -26,7 +26,8 @@ export class AddExeComponent implements OnInit {
   onSubmit() {
     const copy = Object.assign({}, this.exe);
     this.exeService.add(copy);
-    console.log(this.exe.sets);
+    // console.log(this.exe === copy);
+    this.repopulateSets();
   }
 
   changeNumberOfSets(event) {
