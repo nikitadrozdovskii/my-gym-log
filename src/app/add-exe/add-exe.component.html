@@ -13,7 +13,12 @@
       <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)">
     </div>
   </div>
+  <div class="row" *ngIf="this.exe.sets.length">
+    <div class="col-md-5 offset-2"><h5>Reps</h5></div>
+    <div class="col-md-5"><h5>Sets</h5></div>
+
+  </div>
   <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" (setUpdated)="onSetUpdated($event)" #setInputs></app-add-set>
-  <button class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
+  <button *ngIf="this.exe.sets.length" class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
 </form>
 

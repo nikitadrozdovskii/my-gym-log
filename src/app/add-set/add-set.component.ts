@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 
 
 // Contains form to add an individual set. setIndex property is passed down from host AddExe component. On user input to either field
@@ -29,6 +29,28 @@ export class AddSetComponent implements OnInit {
     }
     this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     // console.log(`Set index ${this.index} is updated to: weight = ${this.weight}, reps = ${this.reps}`);
+  }
+
+  onIncreaseWeight() {
+    this.weight++;
+    // console.log(this.weight);
+  }
+
+  onDecreaseWeight() {
+    if (this.weight > 0) {
+      this.weight--;
+    }
+    // console.log(this.weight);
+  }
+
+  onIncreaseReps () {
+    this.reps++;
+  }
+
+  onDecreaseReps () {
+    if (this.reps > 0) {
+      this.reps--;
+    }
   }
 
 }
