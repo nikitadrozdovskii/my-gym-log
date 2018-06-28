@@ -6,24 +6,16 @@ import {Exe} from './exe';
   providedIn: 'root'
 })
 export class ExeService {
-  exes: Exe[] = [{name: 'Bench Press', sets: [
-      {reps: 10, weight: 100},
-      {reps: 10, weight: 100},
-      {reps: 10, weight: 100},
-    ]},
-    {name: 'Squat', sets: [
-        {reps: 8, weight: 150},
-        {reps: 7, weight: 150},
-        {reps: 5, weight: 140},
-      ]}];
+  exes: Exe[] = [];
 
   constructor() { }
   add(exe: Exe) {
     this.exes.push(exe);
-    console.log(this.exes[this.exes.length-1].sets === this.exes[this.exes.length - 2].sets);
+    // console.log(this.exes[this.exes.length-1].sets === this.exes[this.exes.length - 2].sets);
   }
 
   delete(index: number) {
     this.exes.splice(index, 1);
+    console.log(this.exes);
   }
 }

@@ -33,6 +33,7 @@ export class AddSetComponent implements OnInit {
 
   onIncreaseWeight() {
     this.weight++;
+    this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     // console.log(this.weight);
   }
 
@@ -40,16 +41,19 @@ export class AddSetComponent implements OnInit {
     if (this.weight > 0) {
       this.weight--;
     }
+    this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     // console.log(this.weight);
   }
 
   onIncreaseReps () {
     this.reps++;
+    this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
   }
 
   onDecreaseReps () {
     if (this.reps > 0) {
       this.reps--;
+      this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     }
   }
 
