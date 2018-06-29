@@ -12,6 +12,7 @@ export class AddSetComponent implements OnInit {
     // @Input() setNumber: number;
   @Input('setIndex') index: number;
   @Output() setUpdated: EventEmitter<{weight: number, reps: number, i: number}> = new EventEmitter<{weight: number, reps: number, i: number}>();
+  @Output() setValidityChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   weight = 0;
   reps = 0;
   repsAlertText = '';
@@ -39,6 +40,7 @@ export class AddSetComponent implements OnInit {
     this.weight++;
     this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     this.weightValid = true;
+    this.setValidityChange.emit(true);
     this.weightAlertText = '';
     // console.log(this.weight);
   }
@@ -47,6 +49,7 @@ export class AddSetComponent implements OnInit {
     if (this.weight > 0) {
       this.weight--;
       this.weightValid = true;
+      this.setValidityChange.emit(true);
       this.weightAlertText = '';
       this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     }
@@ -57,6 +60,7 @@ export class AddSetComponent implements OnInit {
     this.reps++;
     this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     this.repsValid = true;
+    this.setValidityChange.emit(true);
     this.repsAlertText = '';
   }
 
@@ -65,6 +69,7 @@ export class AddSetComponent implements OnInit {
       this.reps--;
       this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
       this.repsValid = true;
+      this.setValidityChange.emit(true);
       this.repsAlertText = '';
     }
   }
@@ -74,9 +79,11 @@ export class AddSetComponent implements OnInit {
     if (event.target.validity.badInput === true) {
       this.repsAlertText = 'Reps must be a number';
       this.repsValid = false;
+      this.setValidityChange.emit(false);
     } else {
       this.repsAlertText = '';
       this.repsValid = true;
+      this.setValidityChange.emit(true);
     }
   }
 
@@ -84,9 +91,12 @@ export class AddSetComponent implements OnInit {
     if (event.target.validity.badInput === true) {
       this.weightAlertText = 'Weight must be a number';
       this.weightValid = false;
+      this.setValidityChange.emit(false);
     } else {
       this.weightAlertText = '';
       this.weightValid = true;
+      this.setValidityChange.emit(true);
+
     }
   }
 

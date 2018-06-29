@@ -14,6 +14,7 @@ import {ExeService} from '../exe.service';
 export class AddExeComponent implements OnInit {
   exe: Exe = {name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
   numberOfSets: number;
+  entireFormValid = true;
 
 
   constructor(private exeService: ExeService) {
@@ -49,9 +50,14 @@ export class AddExeComponent implements OnInit {
     // console.log(i);
     // console.log(this.exe.sets[i]);
   }
-
 //   // FOR TESTING Constraint validation API
 //   check(event: any) {
 //     console.log(event.target.validity);
 //   }
-// }
+
+  onSetValidityChange(valid: boolean) {
+    this.entireFormValid = valid;
+  }
+
+}
+
