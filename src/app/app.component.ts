@@ -19,4 +19,8 @@ export class AppComponent {
   onDeleteExe(index: number) {
     this.exeService.delete(index);
   }
+
+  onEditExe (index: number) {
+    console.log(this.exes[index]);
+  }
 }

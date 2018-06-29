@@ -12,6 +12,7 @@ export class ExeDetailComponent implements OnInit {
   @Input('detailedExe') exe: Exe;
   @Input('ExeIndex') index: number;
   @Output() deleteExe: EventEmitter<number> = new EventEmitter<number>();
+  @Output() editExe: EventEmitter<number> = new EventEmitter<number>();
   constructor() { }
 
 
@@ -19,6 +20,10 @@ export class ExeDetailComponent implements OnInit {
 
   onDeleteExe() {
     this.deleteExe.emit(this.index);
+  }
+
+  onEditExe () {
+    this.editExe.emit(this.index);
   }
 
 

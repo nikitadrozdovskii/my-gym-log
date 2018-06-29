@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
 import {Exe} from '../exe';
 import {Set} from '../set';
 import {ExeService} from '../exe.service';
@@ -12,7 +12,7 @@ import {ExeService} from '../exe.service';
   styleUrls: ['./add-exe.component.css']
 })
 export class AddExeComponent implements OnInit {
-  exe: Exe = {name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
+  @Input() exe: Exe = {name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
   numberOfSets: number;
   entireFormValid = true;
 
