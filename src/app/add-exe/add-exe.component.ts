@@ -19,6 +19,11 @@ export class AddExeComponent implements OnInit {
 
   constructor(private exeService: ExeService) {
     this.numberOfSets = 3;
+    exeService.exeEditRequest.subscribe(
+      (index) => {
+        console.log(`you want to edit exe with index ${index}`);
+      }
+    );
   }
 
   ngOnInit() {

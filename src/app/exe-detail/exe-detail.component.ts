@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Exe} from '../exe';
+import {ExeService} from '../exe.service';
 
 // Contains template for displaying individual exercise that is passed down from AppComponent via @Input. On clicking delete icon, emits
 // event with index of exercise to be deleted
@@ -13,7 +14,7 @@ export class ExeDetailComponent implements OnInit {
   @Input('ExeIndex') index: number;
   @Output() deleteExe: EventEmitter<number> = new EventEmitter<number>();
   @Output() editExe: EventEmitter<number> = new EventEmitter<number>();
-  constructor() { }
+  constructor(private exeService: ExeService) { }
 
 
   ngOnInit() {}
@@ -23,6 +24,7 @@ export class ExeDetailComponent implements OnInit {
   }
 
   onEditExe () {
+    this.exeService.exeEditRequested(this.index);
     this.editExe.emit(this.index);
   }
 

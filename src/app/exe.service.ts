@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Exe} from './exe';
+import {Subject} from 'rxjs';
 
 // Facilitates storage of exe objects
 @Injectable({
@@ -7,6 +8,12 @@ import {Exe} from './exe';
 })
 export class ExeService {
   exes: Exe[] = [];
+  private exeEditRequestSource = new Subject<number>();
+  exeEditRequest = this.exeEditRequestSource.asObservable();
+
+  exeEditRequested(index: number) {
+    this.exeEditRequestSource.next(index);
+  }
 
   constructor() { }
   add(exe: Exe) {
