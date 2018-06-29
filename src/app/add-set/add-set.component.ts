@@ -14,6 +14,8 @@ export class AddSetComponent implements OnInit {
   @Output() setUpdated: EventEmitter<{weight: number, reps: number, i: number}> = new EventEmitter<{weight: number, reps: number, i: number}>();
   weight = 0;
   reps = 0;
+  alertText = '';
+  repsValid = true;
 
   constructor() { }
 
@@ -48,12 +50,25 @@ export class AddSetComponent implements OnInit {
   onIncreaseReps () {
     this.reps++;
     this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
+    this.repsValid = true;
   }
 
   onDecreaseReps () {
     if (this.reps > 0) {
       this.reps--;
       this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
+      this.repsValid = true;
+    }
+  }
+
+  checkRepsValidity(event: any) {
+    // console.log(event.target.validity);
+    if (event.target.validity.badInput === true) {
+      this.alertText = 'Reps must be a num!';
+      this.repsValid = false;
+    } else {
+      this.alertText = '';
+      this.repsValid = true;
     }
   }
 

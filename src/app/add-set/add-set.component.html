@@ -1,3 +1,8 @@
+<!--<input type="text" class="form-control is-valid">-->
+<!--<div class="valid-feedback">-->
+  <!--Looks good!-->
+<!--</div>-->
+
 <div class="row">
   <div class="col-md-2 align-self-center pb-1"><h5><span class="badge badge-secondary">{{index+1}}</span></h5>
   </div>
@@ -7,12 +12,12 @@
         <div class="input-group-prepend">
           <span class="input-group-text changeSetButton" (click)="onIncreaseReps()">+</span>
         </div>
-        <input type="text" class="form-control" id="reps" name="reps" placeholder="reps" (input)="onUserInput({reps: repsInput.value})" #repsInput value="{{this.reps}}">
+        <input type="number" class="form-control" [class.is-invalid]="!repsValid" id="reps" name="reps" placeholder="reps" (input)="onUserInput({reps: repsInput.value}); checkRepsValidity($event)" #repsInput value="{{this.reps}}">
         <div class="input-group-append">
           <span class="input-group-text changeSetButton" (click)="onDecreaseReps()">-</span>
+          </div>
         </div>
       </div>
-    </div>
   </div>
   <div class="col-md-5">
     <div class="form-group">
@@ -20,11 +25,18 @@
         <div class="input-group-prepend">
           <span class="input-group-text changeSetButton" (click)="onIncreaseWeight()">+</span>
         </div>
-        <input type="text" class="form-control" id="weight" name="weight" placeholder="weight" (input)="onUserInput({weight: weightInput.value})" #weightInput value="{{this.weight}}">
+        <input type="number" class="form-control" id="weight" name="weight" placeholder="weight" (input)="onUserInput({weight: weightInput.value})" #weightInput value="{{this.weight}}">
         <div class="input-group-append">
           <span class="input-group-text changeSetButton" (click)="onDecreaseWeight()">-</span>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!repsValid">
+  <div class="col-md-5 offset-2">
+    <div class="alert alert-danger" role="alert">
+      {{alertText}}
     </div>
   </div>
 </div>

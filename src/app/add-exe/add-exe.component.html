@@ -1,5 +1,5 @@
 <h3>Add exercise</h3>
-<form #addExeForm="ngForm" >
+<form #addExeForm="ngForm" novalidate>
   <div class="row">
     <div class="col-md-2">
       <div class="form-group">
@@ -18,6 +18,21 @@
     <div class="col-md-5"><h5>Weight</h5></div>
 
   </div>
+
+  <!--FOR TESTING Constraint validation API-->
+  <div class="row">
+    <div class="col-md-12">
+      <p>
+        <label for="mail">
+          <span>Please enter an email address:</span>
+          <input (input)="check($event)" type="number" id="mail" name="mail">
+          <span class="error" aria-live="polite"></span>
+        </label>
+      </p>
+    </div>
+  </div>
+
+
   <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" (setUpdated)="onSetUpdated($event)" #setInputs></app-add-set>
   <button *ngIf="this.exe.sets.length" class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
 </form>
