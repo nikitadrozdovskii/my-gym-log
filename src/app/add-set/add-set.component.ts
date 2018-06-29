@@ -14,8 +14,10 @@ export class AddSetComponent implements OnInit {
   @Output() setUpdated: EventEmitter<{weight: number, reps: number, i: number}> = new EventEmitter<{weight: number, reps: number, i: number}>();
   weight = 0;
   reps = 0;
-  alertText = '';
+  repsAlertText = '';
+  weightAlertText = '';
   repsValid = true;
+  weightValid = true;
 
   constructor() { }
 
@@ -36,14 +38,18 @@ export class AddSetComponent implements OnInit {
   onIncreaseWeight() {
     this.weight++;
     this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
+    this.weightValid = true;
+    this.weightAlertText = '';
     // console.log(this.weight);
   }
 
   onDecreaseWeight() {
     if (this.weight > 0) {
       this.weight--;
+      this.weightValid = true;
+      this.weightAlertText = '';
+      this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     }
-    this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     // console.log(this.weight);
   }
 
@@ -51,6 +57,7 @@ export class AddSetComponent implements OnInit {
     this.reps++;
     this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
     this.repsValid = true;
+    this.repsAlertText = '';
   }
 
   onDecreaseReps () {
@@ -58,17 +65,28 @@ export class AddSetComponent implements OnInit {
       this.reps--;
       this.setUpdated.emit({weight: this.weight, reps: this.reps, i: this.index});
       this.repsValid = true;
+      this.repsAlertText = '';
     }
   }
 
   checkRepsValidity(event: any) {
     // console.log(event.target.validity);
     if (event.target.validity.badInput === true) {
-      this.alertText = 'Reps must be a num!';
+      this.repsAlertText = 'Reps must be a number';
       this.repsValid = false;
     } else {
-      this.alertText = '';
+      this.repsAlertText = '';
       this.repsValid = true;
+    }
+  }
+
+  checkWeightValidity(event) {
+    if (event.target.validity.badInput === true) {
+      this.weightAlertText = 'Weight must be a number';
+      this.weightValid = false;
+    } else {
+      this.weightAlertText = '';
+      this.weightValid = true;
     }
   }
 

@@ -50,8 +50,8 @@ export class AddExeComponent implements OnInit {
     // console.log(this.exe.sets[i]);
   }
 
-  // FOR TESTING Constraint validation API
-  check(event: any) {
-    console.log(event.target.validity);
-  }
-}
+//   // FOR TESTING Constraint validation API
+//   check(event: any) {
+//     console.log(event.target.validity);
+//   }
+// }

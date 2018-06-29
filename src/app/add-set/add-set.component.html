@@ -25,7 +25,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text changeSetButton" (click)="onIncreaseWeight()">+</span>
         </div>
-        <input type="number" class="form-control" id="weight" name="weight" placeholder="weight" (input)="onUserInput({weight: weightInput.value})" #weightInput value="{{this.weight}}">
+        <input type="number" class="form-control" id="weight" name="weight" [class.is-invalid]="!weightValid" placeholder="weight" (input)="onUserInput({weight: weightInput.value}); checkWeightValidity($event)" #weightInput value="{{this.weight}}">
         <div class="input-group-append">
           <span class="input-group-text changeSetButton" (click)="onDecreaseWeight()">-</span>
         </div>
@@ -33,10 +33,15 @@
     </div>
   </div>
 </div>
-<div class="row" *ngIf="!repsValid">
+<div class="row">
   <div class="col-md-5 offset-2">
-    <div class="alert alert-danger" role="alert">
-      {{alertText}}
+    <div *ngIf="!repsValid" class="alert alert-danger" role="alert">
+      {{repsAlertText}}
+    </div>
+  </div>
+  <div class="col-md-5">
+    <div *ngIf="!weightValid" class="alert alert-danger" role="alert">
+      {{weightAlertText}}
     </div>
   </div>
 </div>

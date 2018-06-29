@@ -19,18 +19,18 @@
 
   </div>
 
-  <!--FOR TESTING Constraint validation API-->
-  <div class="row">
-    <div class="col-md-12">
-      <p>
-        <label for="mail">
-          <span>Please enter an email address:</span>
-          <input (input)="check($event)" type="number" id="mail" name="mail">
-          <span class="error" aria-live="polite"></span>
-        </label>
-      </p>
-    </div>
-  </div>
+  <!--&lt;!&ndash;FOR TESTING Constraint validation API&ndash;&gt;-->
+  <!--<div class="row">-->
+    <!--<div class="col-md-12">-->
+      <!--<p>-->
+        <!--<label for="mail">-->
+          <!--<span>Please enter an email address:</span>-->
+          <!--<input (input)="check($event)" type="number" id="mail" name="mail">-->
+          <!--<span class="error" aria-live="polite"></span>-->
+        <!--</label>-->
+      <!--</p>-->
+    <!--</div>-->
+  <!--</div>-->
 
 
   <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" (setUpdated)="onSetUpdated($event)" #setInputs></app-add-set>
