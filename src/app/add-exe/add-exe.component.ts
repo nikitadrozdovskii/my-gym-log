@@ -34,6 +34,7 @@ export class AddExeComponent implements OnInit {
   changeNumberOfSets(event) {
     this.numberOfSets = event.target.value;
     this.repopulateSets();
+    console.log(event);
   }
 
   repopulateSets() {

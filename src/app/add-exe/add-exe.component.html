@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-10">
       <label for="customRange2">Number of sets: {{numberOfSets}}</label>
-      <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)">
+      <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)" (touchend)="changeNumberOfSets($event)">
     </div>
   </div>
   <div class="row" *ngIf="this.exe.sets.length">
