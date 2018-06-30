@@ -13,7 +13,6 @@ export class ExeDetailComponent implements OnInit {
   @Input('detailedExe') exe: Exe;
   @Input('ExeIndex') index: number;
   @Output() deleteExe: EventEmitter<number> = new EventEmitter<number>();
-  @Output() editExe: EventEmitter<number> = new EventEmitter<number>();
   constructor(private exeService: ExeService) { }
 
 
@@ -25,7 +24,6 @@ export class ExeDetailComponent implements OnInit {
 
   onEditExe () {
     this.exeService.exeEditRequested(this.index);
-    this.editExe.emit(this.index);
   }
 
 

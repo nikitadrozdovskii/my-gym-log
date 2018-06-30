@@ -13,8 +13,8 @@ export class AddSetComponent implements OnInit {
   @Input('setIndex') index: number;
   @Output() setUpdated: EventEmitter<{weight: number, reps: number, i: number}> = new EventEmitter<{weight: number, reps: number, i: number}>();
   @Output() setValidityChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  weight = 0;
-  reps = 0;
+  weight;
+  reps;
   repsAlertText = '';
   weightAlertText = '';
   repsValid = true;

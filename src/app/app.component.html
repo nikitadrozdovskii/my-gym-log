@@ -5,7 +5,7 @@
       <hr>
       <app-add-exe></app-add-exe>
       <hr>
-      <app-exe-detail *ngFor="let exe of exes; let i=index" [detailedExe]="exe" [ExeIndex]="i" (deleteExe)="onDeleteExe($event)" (editExe)="onEditExe($event)"></app-exe-detail>
+      <app-exe-detail *ngFor="let exe of exes; let i=index" [detailedExe]="exe" [ExeIndex]="i" (deleteExe)="onDeleteExe($event)"></app-exe-detail>
     </div>
   </div>
 </div>

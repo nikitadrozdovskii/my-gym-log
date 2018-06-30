@@ -25,4 +25,10 @@ export class ExeService {
     this.exes.splice(index, 1);
     console.log(this.exes);
   }
+
+  getExe(index: number) {
+    const copy = JSON.parse(JSON.stringify(this.exes[index]));
+    // console.log(this.exes[index] === copy);
+    return copy;
+  }
 }

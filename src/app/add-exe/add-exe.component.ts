@@ -21,7 +21,10 @@ export class AddExeComponent implements OnInit {
     this.numberOfSets = 3;
     exeService.exeEditRequest.subscribe(
       (index) => {
-        console.log(`you want to edit exe with index ${index}`);
+        // console.log(`you want to edit exe with index ${index}`);
+        this.exe = exeService.getExe(index);
+        this.numberOfSets = this.exe.sets.length;
+        console.log(this.exe);
       }
     );
   }
@@ -30,7 +33,7 @@ export class AddExeComponent implements OnInit {
   }
 
   onSubmit() {
-    const copy = Object.assign({}, this.exe);
+    const copy = JSON.parse(JSON.stringify(this.exe));
     this.exeService.add(copy);
     // console.log(this.exe === copy);
     this.repopulateSets();
