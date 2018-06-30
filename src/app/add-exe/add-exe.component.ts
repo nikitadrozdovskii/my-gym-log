@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
 import {Exe} from '../exe';
 import {Set} from '../set';
 import {ExeService} from '../exe.service';
+import {Subscription} from 'rxjs';
 
 // Contains form to add exercise with repeating AddSetComponent, whose number changes depending on user's input, listens to set updated
 // event on each AppSetComponent, updates its own exe object accordingly. When user hits "Add exercise" button, it sends copy of its
@@ -11,15 +12,16 @@ import {ExeService} from '../exe.service';
   templateUrl: './add-exe.component.html',
   styleUrls: ['./add-exe.component.css']
 })
-export class AddExeComponent implements OnInit {
+export class AddExeComponent implements OnInit, OnDestroy {
   @Input() exe: Exe = {name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
   numberOfSets: number;
   entireFormValid = true;
+  subscription: Subscription;
 
 
   constructor(private exeService: ExeService) {
     this.numberOfSets = 3;
-    exeService.exeEditRequest.subscribe(
+    this.subscription = exeService.exeEditRequest.subscribe(
       (index) => {
         // console.log(`you want to edit exe with index ${index}`);
         this.exe = exeService.getExe(index);
@@ -30,6 +32,10 @@ export class AddExeComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onSubmit() {
