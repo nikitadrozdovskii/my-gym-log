@@ -31,4 +31,8 @@ export class ExeService {
     // console.log(this.exes[index] === copy);
     return copy;
   }
+
+  edit(index: number, exe: Exe) {
+    this.exes[index] = exe;
+  }
 }

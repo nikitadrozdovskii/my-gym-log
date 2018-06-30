@@ -23,6 +23,7 @@ export class ExeDetailComponent implements OnInit {
   }
 
   onEditExe () {
+    window.scrollTo(0, 0);
     this.exeService.exeEditRequested(this.index);
   }
 

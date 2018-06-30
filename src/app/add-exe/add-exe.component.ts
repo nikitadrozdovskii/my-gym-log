@@ -17,6 +17,8 @@ export class AddExeComponent implements OnInit, OnDestroy {
   numberOfSets: number;
   entireFormValid = true;
   subscription: Subscription;
+  editMode = false;
+  indexToEdit: number;
 
 
   constructor(private exeService: ExeService) {
@@ -25,8 +27,10 @@ export class AddExeComponent implements OnInit, OnDestroy {
       (index) => {
         // console.log(`you want to edit exe with index ${index}`);
         this.exe = exeService.getExe(index);
+        this.indexToEdit = index;
         this.numberOfSets = this.exe.sets.length;
-        console.log(this.exe);
+        // console.log(this.exe);
+        this.editMode = true;
       }
     );
   }
@@ -42,6 +46,13 @@ export class AddExeComponent implements OnInit, OnDestroy {
     const copy = JSON.parse(JSON.stringify(this.exe));
     this.exeService.add(copy);
     // console.log(this.exe === copy);
+    this.repopulateSets();
+  }
+
+  onEdit() {
+    const copy = JSON.parse(JSON.stringify(this.exe));
+    this.exeService.edit(this.indexToEdit, copy);
+    this.editMode = false;
     this.repopulateSets();
   }
 

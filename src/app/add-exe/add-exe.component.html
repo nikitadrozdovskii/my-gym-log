@@ -1,4 +1,6 @@
-<h3>Add exercise</h3>
+<h3 *ngIf="!editMode">Add exercise</h3>
+<h3 *ngIf="editMode">Edit exercise : {{exe.name}}</h3>
+
 <form #addExeForm="ngForm" novalidate>
   <div class="row">
     <div class="col-md-2">
@@ -36,7 +38,9 @@
 
   <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" [setEditData]="set"
                (setUpdated)="onSetUpdated($event)" (setValidityChange)="onSetValidityChange($event);" #setInputs></app-add-set>
-  <button *ngIf="this.exe.sets.length && this.entireFormValid" class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
+  <button *ngIf="this.exe.sets.length && this.entireFormValid && !editMode" class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
+  <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn btn-primary" (click)="onEdit(); addExeForm.reset()">Edit exercise</button>
+  <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn secondary mx-2" (click)="editMode=false; addExeForm.reset()">Cancel edit</button>
   <div *ngIf="!this.entireFormValid" class="alert alert-danger" role="alert">
     Please fix form errors before adding exercise
   </div>
