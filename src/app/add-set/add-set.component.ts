@@ -12,6 +12,7 @@ export class AddSetComponent implements OnInit {
   @Input('setIndex') index: number;
   @Output() setUpdated: EventEmitter<{weight: number, reps: number, i: number}> = new EventEmitter<{weight: number, reps: number, i: number}>();
   @Output() setValidityChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() setEditData;
   weight = 0;
   reps = 0;
   repsAlertText = '';
@@ -22,6 +23,8 @@ export class AddSetComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.weight = this.setEditData.weight;
+    this.reps = this.setEditData.reps;
   }
 
   onUserInput(input: any) {

@@ -34,7 +34,7 @@
   <!--</div>-->
 
 
-  <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i"
+  <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" [setEditData]="set"
                (setUpdated)="onSetUpdated($event)" (setValidityChange)="onSetValidityChange($event);" #setInputs></app-add-set>
   <button *ngIf="this.exe.sets.length && this.entireFormValid" class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
   <div *ngIf="!this.entireFormValid" class="alert alert-danger" role="alert">
