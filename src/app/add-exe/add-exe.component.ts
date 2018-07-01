@@ -13,13 +13,12 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./add-exe.component.css']
 })
 export class AddExeComponent implements OnInit, OnDestroy {
-  @Input() exe: Exe = {_id: null , name: 'My Exercise', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
+  @Input() exe: Exe = {_id: null ,name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
   numberOfSets: number;
   entireFormValid = true;
   subscription: Subscription;
   editMode = false;
   indexToEdit: number;
-  nameErrorMessage: string = null;
 
   constructor(private exeService: ExeService) {
     this.numberOfSets = 3;
@@ -83,16 +82,6 @@ export class AddExeComponent implements OnInit, OnDestroy {
 
   onSetValidityChange(valid: boolean) {
     this.entireFormValid = valid;
-  }
-
-  validateName(event: any) {
-    if (event.target.validity.valueMissing) {
-      this.entireFormValid = false;
-      this.nameErrorMessage = 'Cannot be empty';
-    } else {
-      this.entireFormValid = true;
-      this.nameErrorMessage = null;
-    }
   }
 
 }
