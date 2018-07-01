@@ -14,7 +14,10 @@ export class AppComponent {
   exes: Exe[] = [];
   constructor(private exeService: ExeService) {
     exeService.getExesFromServer();
-    this.exes = exeService.getExes();
+    exeService.exesUpdated.subscribe(() => {
+      this.exes = exeService.getExes();
+    });
+    
   }
 
   onDeleteExe(index: number) {

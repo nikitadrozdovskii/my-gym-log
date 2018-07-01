@@ -10,7 +10,10 @@ import { HttpClient } from '@angular/common/http';
 export class ExeService implements OnInit {
   private exes: Exe[] = [];
   private exeEditRequestSource = new Subject<number>();
+  private exesUpdateRequestSource = new Subject<number>();
   exeEditRequest = this.exeEditRequestSource.asObservable();
+  exesUpdated = this.exesUpdateRequestSource.asObservable();
+
 
   exeEditRequested(index: number) {
     this.exeEditRequestSource.next(index);
@@ -35,7 +38,7 @@ export class ExeService implements OnInit {
       "http://localhost:3000/api/exes"
     ).subscribe((exes) => {
       this.exes = exes.exes;
-      console.log(this.exes);
+      this.exesUpdateRequestSource.next();
     });
   }
   
