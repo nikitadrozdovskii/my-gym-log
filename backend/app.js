@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
+const Exe = require('./models/exe');
 const app = express();
 
 mongoose
@@ -32,8 +33,17 @@ app.use((req, res, next) => {
 });
 
 app.post("/api/exes", (req, res, next) => {
-    //TBD: create mongoose model Exe
-    console.log(req.body);
+    const exe = new Exe({
+      name: req.body.name,
+      sets: req.body.sets
+    });
+    exe.save().then((createdExe) => {
+      res.status(201).json({
+        exe: createdExe,
+        message: "Exe added to DB!"
+      })
+    });
+    // console.log(req.body);
 });
 
 module.exports = app;

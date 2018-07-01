@@ -18,10 +18,11 @@ export class ExeService {
 
   constructor(private http: HttpClient) { }
   add(exe: Exe) {
-    this.exes.push(exe);
-    this.http.post<Exe>("http://localhost:3000/api/exes", exe).
-    subscribe();
-    // console.log(this.exes[this.exes.length-1].sets === this.exes[this.exes.length - 2].sets);
+    this.http.post<{message: String, exe: Exe}>("http://localhost:3000/api/exes", exe).
+    subscribe((res)=>{
+      this.exes.push(res.exe);
+    });
+    console.log(this.exes);
   }
 
   delete(index: number) {
