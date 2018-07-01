@@ -31,4 +31,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.post("/api/exes", (req, res, next) => {
+    //TBD: create mongoose model Exe
+    console.log(req.body);
+});
+
 module.exports = app;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Exe} from './exe';
 import {Subject} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 // Facilitates storage of exe objects
 @Injectable({
@@ -15,9 +16,11 @@ export class ExeService {
     this.exeEditRequestSource.next(index);
   }
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
   add(exe: Exe) {
     this.exes.push(exe);
+    this.http.post<Exe>("http://localhost:3000/api/exes", exe).
+    subscribe();
     // console.log(this.exes[this.exes.length-1].sets === this.exes[this.exes.length - 2].sets);
   }
 
