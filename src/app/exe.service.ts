@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class ExeService implements OnInit {
   private exes: Exe[] = [];
   private exeEditRequestSource = new Subject<number>();
-  private exesUpdateRequestSource = new Subject<number>();
+  private exesUpdateRequestSource = new Subject<Exe[]>();
   exeEditRequest = this.exeEditRequestSource.asObservable();
   exesUpdated = this.exesUpdateRequestSource.asObservable();
 
@@ -24,8 +24,9 @@ export class ExeService implements OnInit {
     this.http.post<{message: String, exe: Exe}>("http://localhost:3000/api/exes", exe).
     subscribe((res)=>{
       this.exes.push(res.exe);
+      this.exesUpdateRequestSource.next();
     });
-    console.log(this.exes);
+    // console.log(this.exes);
   }
 
   
@@ -53,10 +54,11 @@ export class ExeService implements OnInit {
   delete(index: number) {
     //TBD: instead of accessing this.exes directly, send delete request, receive updated exes and assign them to exes
     // this.exes.splice(index, 1);
-    this.http.delete<{message: string}>(
+    this.http.delete<{message: string, exes: Exe[]}>(
       "http://localhost:3000/api/exes"
     ).subscribe((response) => {
       console.log(response);
+      this.getExesFromServer();
     }); 
   }
 
