@@ -7,7 +7,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://nikita:sYgRzgawVF53xpSq@cluster0-psr13.mongodb.net/test?retryWrites=true"
+    "mongodb+srv://nikita:sYgRzgawVF53xpSq@cluster0-psr13.mongodb.net/test?retryWrites=false"
   )
   .then(() => {
     console.log("Connected to database!");
@@ -54,7 +54,21 @@ app.get("/api/exes", (req, res, next) => {
         exes: exes
       });
     }
-  );
+  ).catch((error) => {
+      console.log(error);
+});
+});
+
+app.delete("/api/exes", (req, res, next) => {
+  Exe.deleteMany({}).then(() => {
+    res.status(200).json({
+      message: "Server successfully deleted all posts from db."
+    });
+  }
+  )
+  .catch((error) => {
+    console.log(error);
+  });
 });
 
 module.exports = app;
