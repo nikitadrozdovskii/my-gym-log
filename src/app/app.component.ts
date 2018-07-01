@@ -13,7 +13,8 @@ export class AppComponent {
   title = 'My Gym Log';
   exes: Exe[] = [];
   constructor(private exeService: ExeService) {
-    this.exes = exeService.exes;
+    exeService.getExesFromServer();
+    this.exes = exeService.getExes();
   }
 
   onDeleteExe(index: number) {

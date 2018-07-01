@@ -46,4 +46,15 @@ app.post("/api/exes", (req, res, next) => {
     // console.log(req.body);
 });
 
+app.get("/api/exes", (req, res, next) => {
+  Exe.find().then(
+    (exes) => {
+      res.status(200).json({
+        message: "Exes fetched.",
+        exes: exes
+      });
+    }
+  );
+});
+
 module.exports = app;

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import {Exe} from './exe';
 import {Subject} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -7,8 +7,8 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ExeService {
-  exes: Exe[] = [];
+export class ExeService implements OnInit {
+  private exes: Exe[] = [];
   private exeEditRequestSource = new Subject<number>();
   exeEditRequest = this.exeEditRequestSource.asObservable();
 
@@ -23,6 +23,28 @@ export class ExeService {
       this.exes.push(res.exe);
     });
     console.log(this.exes);
+  }
+
+  
+  ngOnInit() {
+  }
+
+  getExesFromServer(){
+    //TBD get exes from server
+    this.http.get<{message: string, exes: Exe[]}>(
+      "http://localhost:3000/api/exes"
+    ).subscribe((exes) => {
+      this.exes = exes.exes;
+      console.log(this.exes);
+    });
+  }
+  
+  getExes() {
+    return JSON.parse(JSON.stringify(this.exes));
+  }
+
+  setExes(exes: Exe[]) {
+    this.exes = exes;
   }
 
   delete(index: number) {

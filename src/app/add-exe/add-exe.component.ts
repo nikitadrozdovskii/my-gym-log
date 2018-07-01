@@ -13,13 +13,12 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./add-exe.component.css']
 })
 export class AddExeComponent implements OnInit, OnDestroy {
-  @Input() exe: Exe = {name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
+  @Input() exe: Exe = {_id: null ,name: 'Bench Press', sets: [{reps: 0, weight: 0}, {reps: 0, weight: 0}, {reps: 0, weight: 0}]};
   numberOfSets: number;
   entireFormValid = true;
   subscription: Subscription;
   editMode = false;
   indexToEdit: number;
-
 
   constructor(private exeService: ExeService) {
     this.numberOfSets = 3;
