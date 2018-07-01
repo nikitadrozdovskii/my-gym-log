@@ -51,13 +51,11 @@ export class ExeService implements OnInit {
     this.exes = exes;
   }
 
-  delete(index: number) {
-    //TBD: instead of accessing this.exes directly, send delete request, receive updated exes and assign them to exes
-    // this.exes.splice(index, 1);
+  delete(id: number) {
     this.http.delete<{message: string, exes: Exe[]}>(
-      "http://localhost:3000/api/exes"
+      `http://localhost:3000/api/exes/${id}`
     ).subscribe((response) => {
-      console.log(response);
+      // console.log(response);
       this.getExesFromServer();
     }); 
   }

@@ -59,10 +59,10 @@ app.get("/api/exes", (req, res, next) => {
 });
 });
 
-app.delete("/api/exes", (req, res, next) => {
-  Exe.deleteMany({}).then(() => {
+app.delete("/api/exes/:id", (req, res, next) => {
+  Exe.deleteOne({_id: req.params.id }).then(() => {
     res.status(200).json({
-      message: "Server successfully deleted all posts from db."
+      message: "Server successfully deleted exe."
     });
   }
   )
