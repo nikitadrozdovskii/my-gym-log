@@ -54,7 +54,9 @@ app.get("/api/exes", (req, res, next) => {
         exes: exes
       });
     }
-  );
+  ).catch((error) => {
+      console.log(error);
+});
 });
 
 module.exports = app;

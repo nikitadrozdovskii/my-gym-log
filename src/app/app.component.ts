@@ -9,15 +9,20 @@ import {ExeService} from './exe.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'My Gym Log';
   exes: Exe[] = [];
   constructor(private exeService: ExeService) {
-    exeService.getExesFromServer();
-    exeService.exesUpdated.subscribe(() => {
-      this.exes = exeService.getExes();
-    });
-    
+
+  }
+
+  ngOnInit() {
+      this.exeService.getExesFromServer();
+      this.exes = this.exeService.getExes();
+      this.exeService.exesUpdated.subscribe(() => {
+          this.exeService.getExesFromServer();
+          this.exes = this.exeService.getExes();
+      });
   }
 
   onDeleteExe(index: number) {

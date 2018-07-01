@@ -20,10 +20,13 @@ export class ExeService implements OnInit {
   }
 
   constructor(private http: HttpClient) { }
+
   add(exe: Exe) {
     this.http.post<{message: String, exe: Exe}>("http://localhost:3000/api/exes", exe).
-    subscribe((res)=>{
+    subscribe((res) => {
       this.exes.push(res.exe);
+      // notify the rest of the app that exes were updated
+      this.exesUpdateRequestSource.next();
     });
     console.log(this.exes);
   }
@@ -33,7 +36,6 @@ export class ExeService implements OnInit {
   }
 
   getExesFromServer(){
-    //TBD get exes from server
     this.http.get<{message: string, exes: Exe[]}>(
       "http://localhost:3000/api/exes"
     ).subscribe((exes) => {

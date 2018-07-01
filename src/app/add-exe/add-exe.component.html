@@ -6,8 +6,10 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="exerciseName" class="form-label">Exercise name:</label>
-        <input type="text" class="form-control" id="exerciseName" [(ngModel)]="exe.name" name="name">
-        <!--<h5>{{exe.name}}</h5>-->
+        <input type="text" class="form-control" [class.is-invalid]="nameErrorMessage" id="exerciseName" [(ngModel)]="exe.name" name="name" required (input)="validateName($event)">
+        <div *ngIf="nameErrorMessage" class="alert alert-danger" role="alert">
+          {{nameErrorMessage}}
+        </div>
       </div>
     </div>
     <div class="col-md-10">
@@ -38,7 +40,7 @@
 
   <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" [setEditData]="set"
                (setUpdated)="onSetUpdated($event)" (setValidityChange)="onSetValidityChange($event);" #setInputs></app-add-set>
-  <button *ngIf="this.exe.sets.length && this.entireFormValid && !editMode" class="btn btn-primary" (click)="onSubmit(); addExeForm.reset()">Add exercise</button>
+  <button *ngIf="this.exe.sets.length && this.entireFormValid && !editMode" class="btn btn-primary" (click)="onSubmit()">Add exercise</button>
   <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn btn-primary" (click)="onEdit(); addExeForm.reset()">Edit exercise</button>
   <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn secondary mx-2" (click)="editMode=false; addExeForm.reset()">Cancel edit</button>
   <div *ngIf="!this.entireFormValid" class="alert alert-danger" role="alert">
