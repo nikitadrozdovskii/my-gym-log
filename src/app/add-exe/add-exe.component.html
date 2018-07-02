@@ -6,8 +6,10 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="exerciseName" class="form-label">Exercise name:</label>
-        <input type="text" class="form-control" id="exerciseName" [(ngModel)]="exe.name" name="name">
-        <!--<h5>{{exe.name}}</h5>-->
+        <input type="text" class="form-control" [class.is-invalid]="!nameValid" id="exerciseName" [(ngModel)]="exe.name" name="name" (input)="validateName($event)" required>
+        <div *ngIf="!nameValid" class="alert alert-danger" role="alert">
+          Cannot be empty
+        </div>
       </div>
     </div>
     <div class="col-md-10">

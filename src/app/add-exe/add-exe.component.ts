@@ -19,6 +19,7 @@ export class AddExeComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   editMode = false;
   indexToEdit: number;
+  nameValid = true;
 
   constructor(private exeService: ExeService) {
     this.numberOfSets = 3;
@@ -82,6 +83,16 @@ export class AddExeComponent implements OnInit, OnDestroy {
 
   onSetValidityChange(valid: boolean) {
     this.entireFormValid = valid;
+  }
+
+  validateName(event) {
+    if (event.target.validity.valueMissing){
+      this.nameValid = false;
+      this.entireFormValid = false;
+    } else {
+      this.nameValid = true;
+      this.entireFormValid = true;
+    }
   }
 
 }
