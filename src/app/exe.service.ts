@@ -56,6 +56,7 @@ export class ExeService implements OnInit {
       `http://localhost:3000/api/exes/${id}`
     ).subscribe((response) => {
       // console.log(response);
+      //TBD: instead of getting all exes after deletion, delete needed one on front end
       this.getExesFromServer();
     }); 
   }
@@ -66,7 +67,9 @@ export class ExeService implements OnInit {
     return copy;
   }
 
-  edit(index: number, exe: Exe) {
-    this.exes[index] = exe;
+  edit(id: number, exe: Exe) {
+    this.http.put(`http://localhost:3000/api/exes/${id}`, exe).subscribe((response)=> {
+      this.getExesFromServer();      
+    });
   }
 }

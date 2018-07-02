@@ -27,7 +27,7 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET, POST, PATCH, DELETE, OPTIONS"
+    "GET, POST, PATCH, DELETE, PUT, OPTIONS"
   );
   next();
 });
@@ -69,6 +69,18 @@ app.delete("/api/exes/:id", (req, res, next) => {
   .catch((error) => {
     console.log(error);
   });
+});
+
+app.put("/api/exes/:id", (req, res, next) => {
+  Exe.findByIdAndUpdate(req.params.id, req.body).then(() => {
+    res.status(200).json({
+      message: "Successfully updated exe."
+    })
+  })
+  .catch( () => {
+    console.log(`id: ` + req.params._id);
+  }
+  );
 });
 
 module.exports = app;
