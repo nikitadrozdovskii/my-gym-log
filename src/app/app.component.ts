@@ -12,6 +12,7 @@ import {ExeService} from './exe.service';
 export class AppComponent implements OnInit{
   title = 'My Gym Log';
   exes: Exe[] = [];
+  serverErrorMessage: string = null;
 
   constructor(private exeService: ExeService) {
   }
@@ -20,6 +21,12 @@ export class AppComponent implements OnInit{
     this.exeService.getExesFromServer();
     this.exeService.exesUpdated.subscribe(() => {
       this.exes = this.exeService.getExes();
+    });
+    this.exeService.serverErrored.subscribe((errorMessage) => {
+      this.serverErrorMessage = errorMessage;
+      setTimeout(() => {
+        this.serverErrorMessage = null;
+      },3000);
     });
   }
 

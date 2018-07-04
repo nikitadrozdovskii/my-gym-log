@@ -11,9 +11,10 @@ export class ExeService implements OnInit {
   private exes: Exe[] = [];
   private exeEditRequestSource = new Subject<number>();
   private exesUpdateRequestSource = new Subject<Exe[]>();
+  private serverErrorSource = new Subject<string>();
   exeEditRequest = this.exeEditRequestSource.asObservable();
   exesUpdated = this.exesUpdateRequestSource.asObservable();
-  errorMessage: string;
+  serverErrored = this.serverErrorSource.asObservable();
 
 
   exeEditRequested(index: number) {
@@ -43,7 +44,7 @@ export class ExeService implements OnInit {
       this.exesUpdateRequestSource.next();
     }
     ,(error)=>{
-      console.log(error);
+      this.serverErrorSource.next(error.statusText);
     }
   );
   }
@@ -77,4 +78,5 @@ export class ExeService implements OnInit {
       this.getExesFromServer();      
     });
   }
+
 }
