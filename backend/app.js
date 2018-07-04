@@ -38,15 +38,29 @@ app.use((req, res, next) => {
   next();
 });
 
-//TBD if request is OPTIONS, reply with 200, otherwise do what you do below. Otherwise you keep getting your custom error to OPTIONS , and when
-//your actual request goes out the Angular ends up getting Code 0 and unknown type
+//this middleware allows requests with method header set to OPTIONS to pass without error,
+//whereas all other requests are passed to next middleware
 app.use((req, res, next) => {
-  if (!connected){
-  res.statusMessage = 'My Custom Error';
-  res.status(500).send({ error: 'Something failed!' })
+  if (res.req.connection._httpMessage.req.method === "OPTIONS"){
+    // console.log(`Request method is OPTIONS`);
+    res.status(200).send();
   } else {
     next();
   }
+});
+
+//this middleware returns an error to client if server is not connected to DB
+app.use((req, res, next) => {
+  //console.log(req.connection._httpMessage.req.method); //this is method header
+  // (res.req.connection._httpMessage.req.method === "OPTIONS")
+    if (!connected){
+      res.statusMessage = 'Database Error';
+      res.status(500).send({ error: 'Server could not connect to database.' })
+      } else {
+        next();
+      }
+  
+
 
 });
 
