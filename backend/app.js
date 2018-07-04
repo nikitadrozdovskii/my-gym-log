@@ -9,7 +9,7 @@ connected = true;
 
 mongoose
   .connect(
-    "!mongodb+srv://nikita:sYgRzgawVF53xpSq@cluster0-psr13.mongodb.net/test?retryWrites=false"
+    "mongodb+srv://nikita:sYgRzgawVF53xpSq@cluster0-psr13.mongodb.net/test?retryWrites=false"
   )
   .then(() => {
     console.log("Connected to database!");

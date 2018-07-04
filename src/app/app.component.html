@@ -4,8 +4,8 @@
     <div class="col md-12">
       <hr>
       <div *ngIf="serverErrorMessage" class="alert alert-warning" role="alert">
-        There was a server problem: {{serverErrorMessage}}. <br>
-        Please try again.
+        <h5>{{serverErrorMessage}}</h5>
+        There was a server problem. Please try again.
       </div>
       <app-add-exe></app-add-exe>
       <hr>

@@ -27,8 +27,10 @@ export class ExeService implements OnInit {
     subscribe((res)=>{
       this.exes.push(res.exe);
       this.exesUpdateRequestSource.next();
+    }
+    ,(error)=>{
+      this.serverErrorSource.next(error.statusText);
     });
-    // console.log(this.exes);
   }
 
   
@@ -64,6 +66,9 @@ export class ExeService implements OnInit {
       // console.log(response);
       //TBD: instead of getting all exes after deletion, delete needed one on front end
       this.getExesFromServer();
+    },
+    (error)=>{
+      this.serverErrorSource.next(error.statusText);
     }); 
   }
 
@@ -76,6 +81,9 @@ export class ExeService implements OnInit {
   edit(id: number, exe: Exe) {
     this.http.put(`http://localhost:3000/api/exes/${id}`, exe).subscribe((response)=> {
       this.getExesFromServer();      
+    }
+    ,(error)=>{
+      this.serverErrorSource.next(error.statusText);
     });
   }
 
