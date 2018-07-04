@@ -13,6 +13,7 @@ export class ExeService implements OnInit {
   private exesUpdateRequestSource = new Subject<Exe[]>();
   exeEditRequest = this.exeEditRequestSource.asObservable();
   exesUpdated = this.exesUpdateRequestSource.asObservable();
+  errorMessage: string;
 
 
   exeEditRequested(index: number) {
@@ -40,7 +41,11 @@ export class ExeService implements OnInit {
     ).subscribe((exes) => {
       this.exes = exes.exes;
       this.exesUpdateRequestSource.next();
-    });
+    }
+    ,(error)=>{
+      console.log(error.statusText);
+    }
+  );
   }
   
   getExes() {

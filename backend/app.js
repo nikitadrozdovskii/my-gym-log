@@ -5,16 +5,21 @@ const mongoose = require("mongoose");
 const Exe = require('./models/exe');
 const app = express();
 
+connected = true;
+
 mongoose
   .connect(
-    "mongodb+srv://nikita:sYgRzgawVF53xpSq@cluster0-psr13.mongodb.net/test?retryWrites=false"
+    "!mongodb+srv://nikita:sYgRzgawVF53xpSq@cluster0-psr13.mongodb.net/test?retryWrites=false"
   )
   .then(() => {
     console.log("Connected to database!");
   })
   .catch(() => {
     console.log("Connection failed!");
+    connected  = false;
   });
+
+
 
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +35,11 @@ app.use((req, res, next) => {
     "GET, POST, PATCH, DELETE, PUT, OPTIONS"
   );
   next();
+});
+
+app.use((req, res, next) => {
+  res.statusMessage = "Server could not connect to database";
+  res.status(500).end();
 });
 
 app.post("/api/exes", (req, res, next) => {
