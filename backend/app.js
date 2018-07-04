@@ -38,9 +38,11 @@ app.use((req, res, next) => {
   next();
 });
 
-
+//TBD if request is OPTIONS, reply with 200, otherwise do what you do below. Otherwise you keep getting your custom error to OPTIONS , and when
+//your actual request goes out the Angular ends up getting Code 0 and unknown type
 app.use((req, res, next) => {
   if (!connected){
+  res.statusMessage = 'My Custom Error';
   res.status(500).send({ error: 'Something failed!' })
   } else {
     next();
