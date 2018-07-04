@@ -43,7 +43,7 @@ export class ExeService implements OnInit {
       this.exesUpdateRequestSource.next();
     }
     ,(error)=>{
-      console.log(error.statusText);
+      console.log(error);
     }
   );
   }

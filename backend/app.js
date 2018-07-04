@@ -16,7 +16,8 @@ mongoose
   })
   .catch(() => {
     console.log("Connection failed!");
-    connected  = false;
+    connected = false;
+    console.log(connected);
   });
 
 
@@ -37,9 +38,14 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.use((req, res, next) => {
-  res.statusMessage = "Server could not connect to database";
-  res.status(500).end();
+  if (!connected){
+  res.status(500).send({ error: 'Something failed!' })
+  } else {
+    next();
+  }
+
 });
 
 app.post("/api/exes", (req, res, next) => {
