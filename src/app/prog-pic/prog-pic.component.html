@@ -1,0 +1,10 @@
+<h3>Add today's progress picture!</h3>
+<!-- <img [src]="imageUrl" alt=""> -->
+
+<div class="card bg-dark text-white" id="preview">
+    <img [style.width]="imageWidth" [style.height]="imageHeight" class="card-img p-4" [src]="imageUrl" alt="Card image">
+</div>
+
+
+<input type="file" #filePicker style="display:none" (change)="onImagePicked($event)">
+<button type="button" class="btn btn-outline-dark" (click)="filePicker.click()">Upload a picture</button>

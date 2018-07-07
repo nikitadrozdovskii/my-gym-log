@@ -7,6 +7,8 @@
         <h5>{{serverErrorMessage}}</h5>
         There was a server problem. Please try again.
       </div>
+      <app-prog-pic></app-prog-pic>
+      <hr>
       <app-add-exe></app-add-exe>
       <hr>
       <app-exe-detail *ngFor="let exe of exes; let i=index" [detailedExe]="exe" [ExeIndex]="i" (deleteExe)="onDeleteExe($event)"></app-exe-detail>

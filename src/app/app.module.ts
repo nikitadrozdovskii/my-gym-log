@@ -7,13 +7,15 @@ import { ExeDetailComponent } from './exe-detail/exe-detail.component';
 import { AddExeComponent } from './add-exe/add-exe.component';
 import {FormsModule} from '@angular/forms';
 import { AddSetComponent } from './add-set/add-set.component';
+import { ProgPicComponent } from './prog-pic/prog-pic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExeDetailComponent,
     AddExeComponent,
-    AddSetComponent
+    AddSetComponent,
+    ProgPicComponent
   ],
   imports: [
     BrowserModule,
