@@ -13,6 +13,7 @@ export class AppComponent implements OnInit{
   title = 'My Gym Log';
   exes: Exe[] = [];
   serverErrorMessage: string = null;
+  date: String;
 
   constructor(private exeService: ExeService) {
   }
@@ -32,5 +33,9 @@ export class AppComponent implements OnInit{
 
   onDeleteExe(index: number) {
     this.exeService.delete(this.exes[index]._id);
+  }
+
+  dateSelected (event) {
+    this.date = event.target.value;
   }
 }

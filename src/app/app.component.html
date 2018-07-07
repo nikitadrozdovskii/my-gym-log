@@ -7,6 +7,8 @@
         <h5>{{serverErrorMessage}}</h5>
         There was a server problem. Please try again.
       </div>
+      <h3>Select Date:</h3>
+      <input (change)="dateSelected($event)" type="date" name="date"/>
       <app-prog-pic></app-prog-pic>
       <hr>
       <app-add-exe></app-add-exe>
