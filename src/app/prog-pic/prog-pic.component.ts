@@ -10,6 +10,7 @@ export class ProgPicComponent implements OnInit {
   imageUrl: string;
   imageWidth: string;
   imageHeight: string;
+  aspectRatio: number;
   constructor() { }
 
   ngOnInit() {
@@ -22,13 +23,11 @@ export class ProgPicComponent implements OnInit {
     reader.onload = () => {
       const image = new Image;
       this.imageUrl = reader.result;
-      image.onload = () => {
-        // alert(image.width);
-        this.imageWidth = String(image.width) + 'px';
-        this.imageHeight = String(image.height) + 'px';
-        console.log(this.imageWidth);
-        console.log(this.imageHeight);
-      }
+    //   image.onload = () => {
+    //     //get dimensions of image
+    //     console.log(this.imageHeight);
+    //     console.log(this.imageWidth);
+    //   }
       image.src = this.imageUrl;
     };
     reader.readAsDataURL(file); 
