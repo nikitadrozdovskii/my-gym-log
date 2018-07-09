@@ -52,7 +52,7 @@ export class AddExeComponent implements OnInit, OnDestroy {
 
   onEdit() {
     const copy = JSON.parse(JSON.stringify(this.exe));
-    this.exeService.edit(this.exe._id, copy);
+    this.exeService.edit(this.date, this.exe._id, copy);
     this.editMode = false;
     this.repopulateSets();
   }

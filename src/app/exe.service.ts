@@ -79,10 +79,9 @@ export class ExeService implements OnInit {
     return copy;
   }
 
-  edit(id: number, exe: Exe) {
-    this.http.put(`http://localhost:3000/api/exes/${id}`, exe).subscribe((response)=> {
-    ////UNCOMMMMMMMMMMMMMMMMMMMMMMMMMEEEENT  
-    // this.getExesFromServer();      
+  edit(date: string, id: number, exe: Exe) {
+    this.http.put(`http://localhost:3000/api/days/${date}/${id}`, exe).subscribe((response)=> {
+    this.getExesFromServer(date);      
     }
     ,(error)=>{
       this.serverErrorSource.next(error.statusText);

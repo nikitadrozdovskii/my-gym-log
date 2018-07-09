@@ -145,7 +145,7 @@ app.delete("/api/exes/:date/:id", (req, res, next) => {
         );}
       ).catch((error) => {
         console.log(error);
-      });;
+      });
     }
   ).catch((error) => {
     console.log(error);
@@ -163,16 +163,28 @@ app.delete("/api/exes/:date/:id", (req, res, next) => {
   // });
 });
 
-app.put("/api/exes/:id", (req, res, next) => {
-  Exe.findByIdAndUpdate(req.params.id, req.body).then(() => {
-    res.status(200).json({
-      message: "Successfully updated exe."
-    })
-  })
-  .catch( () => {
-    console.log(`id: ` + req.params._id);
-  }
-  );
+app.put("/api/days/:date/:id", (req, res, next) => {
+  // Exe.findByIdAndUpdate(req.params.id, req.body).then(() => {
+  //   res.status(200).json({
+  //     message: "Successfully updated exe."
+  //   })
+  // })
+  // .catch( () => {
+  //   console.log(`id: ` + req.params._id);
+  // }
+  // );
+  Day.find({date: req.params.date}).then((days) => {
+    console.log(days[0].exes.id(req.params.id));
+    days[0].exes.id(req.params.id).set({name: req.body.name, sets: req.body.sets});
+    days[0].save().then(() => {
+      res.status(200).json({
+        message: "Server successfully updated exe"
+      }
+      );}
+    ).catch((error) => {
+      console.log(error);
+    });
+  });
 });
 
 module.exports = app;
