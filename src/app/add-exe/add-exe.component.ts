@@ -20,6 +20,7 @@ export class AddExeComponent implements OnInit, OnDestroy {
   editMode = false;
   indexToEdit: number;
   nameValid = true;
+  @Input ('AddExeDate') date: string;
 
   constructor(private exeService: ExeService) {
     this.numberOfSets = 3;
@@ -44,7 +45,7 @@ export class AddExeComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const copy = JSON.parse(JSON.stringify(this.exe));
-    this.exeService.add(copy);
+    this.exeService.add(copy, this.date);
     // console.log(this.exe === copy);
     this.repopulateSets();
   }

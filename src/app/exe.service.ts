@@ -22,8 +22,9 @@ export class ExeService implements OnInit {
   }
 
   constructor(private http: HttpClient) { }
-  add(exe: Exe) {
-    this.http.post<{message: String, exe: Exe}>("http://localhost:3000/api/exes", exe).
+
+  add(exe: Exe, date: string) {
+    this.http.post<{message: String, exe: Exe}>(`http://localhost:3000/api/exes/${date}`, exe).
     subscribe((res)=>{
       this.exes.push(res.exe);
       this.exesUpdateRequestSource.next();

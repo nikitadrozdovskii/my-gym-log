@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const Exe = require('./models/exe');
+const Day = require('./models/day');
+
 const app = express();
 
 connected = true;
@@ -64,7 +66,23 @@ app.use((req, res, next) => {
 
 });
 
-app.post("/api/exes", (req, res, next) => {
+app.post("/api/exes/:date", (req, res, next) => {
+    //find the day, if it does not exist, create it, add this Exe to it's exes array
+    Day.find({date: req.params.date}).then((day)=>{
+      if (day.length === 0) {
+        console.log('no day found');
+        const newDay = new Day({date: req.params.date, exes: [{name: req.body.name, sets: req.body.sets}]});
+        newDay.save();
+      } else {
+        console.log(day[0]);
+        day[0].exes.push({name: req.body.name, sets: req.body.sets});
+        day[0].save();
+      }
+    }).catch((error)=>
+  {console.log(error);}
+);
+
+    //add exe to "exes" collection, TBD: once "days" collection is fully implemented, remove
     const exe = new Exe({
       name: req.body.name,
       sets: req.body.sets

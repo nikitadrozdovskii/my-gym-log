@@ -11,7 +11,7 @@
       <input (change)="dateSelected($event)" type="date" name="date"/>
       <app-prog-pic></app-prog-pic>
       <hr>
-      <app-add-exe></app-add-exe>
+      <app-add-exe [AddExeDate]='this.date'></app-add-exe>
       <hr>
       <app-exe-detail *ngFor="let exe of exes; let i=index" [detailedExe]="exe" [ExeIndex]="i" (deleteExe)="onDeleteExe($event)"></app-exe-detail>
     </div>
