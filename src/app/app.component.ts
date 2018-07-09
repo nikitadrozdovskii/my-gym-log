@@ -13,13 +13,13 @@ export class AppComponent implements OnInit{
   title = 'My Gym Log';
   exes: Exe[] = [];
   serverErrorMessage: string = null;
-  date: String;
+  date: string = '2018-07-09';
 
   constructor(private exeService: ExeService) {
   }
 
   ngOnInit () {
-    this.exeService.getExesFromServer();
+    this.exeService.getExesFromServer(this.date);
     this.exeService.exesUpdated.subscribe(() => {
       this.exes = this.exeService.getExes();
     });

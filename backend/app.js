@@ -83,29 +83,29 @@ app.post("/api/exes/:date", (req, res, next) => {
 );
 
     //add exe to "exes" collection, TBD: once "days" collection is fully implemented, remove
-    const exe = new Exe({
-      name: req.body.name,
-      sets: req.body.sets
-    });
-    exe.save().then((createdExe) => {
-      res.status(201).json({
-        exe: createdExe,
-        message: "Exe added to DB!"
-      })
-    });
-    // console.log(req.body);
+    // const exe = new Exe({
+    //   name: req.body.name,
+    //   sets: req.body.sets
+    // });
+    // exe.save().then((createdExe) => {
+    //   res.status(201).json({
+    //     exe: createdExe,
+    //     message: "Exe added to DB!"
+    //   })
+    // });
+    // // console.log(req.body);
 });
 
-app.get("/api/exes", (req, res, next) => {
-  Exe.find().then(
-    (exes) => {
+app.get("/api/days/:date", (req, res, next) => {
+  Day.find({date: req.params.date}).then(
+    (day) => {
       res.status(200).json({
         message: "Exes fetched.",
-        exes: exes
+        exes: day[0].exes
       });
     }
   ).catch((error) => {
-      console.log(error);
+      console.log("error" + error);
 });
 });
 

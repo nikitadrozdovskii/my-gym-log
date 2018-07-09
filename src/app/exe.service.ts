@@ -38,10 +38,10 @@ export class ExeService implements OnInit {
   ngOnInit() {
   }
 
-  getExesFromServer(){
+  getExesFromServer(date: string){
     //TBD get exes from server
     this.http.get<{message: string, exes: Exe[]}>(
-      "http://localhost:3000/api/exes"
+      `http://localhost:3000/api/days/${date}`
     ).subscribe((exes) => {
       this.exes = exes.exes;
       this.exesUpdateRequestSource.next();
@@ -65,8 +65,8 @@ export class ExeService implements OnInit {
       `http://localhost:3000/api/exes/${id}`
     ).subscribe((response) => {
       // console.log(response);
-      //TBD: instead of getting all exes after deletion, delete needed one on front end
-      this.getExesFromServer();
+      //UNCOMMMMMMMMMMMMMMMMMMMMMMMMMEEEENT
+      // this.getExesFromServer();
     },
     (error)=>{
       this.serverErrorSource.next(error.statusText);
@@ -81,7 +81,8 @@ export class ExeService implements OnInit {
 
   edit(id: number, exe: Exe) {
     this.http.put(`http://localhost:3000/api/exes/${id}`, exe).subscribe((response)=> {
-      this.getExesFromServer();      
+    ////UNCOMMMMMMMMMMMMMMMMMMMMMMMMMEEEENT  
+    // this.getExesFromServer();      
     }
     ,(error)=>{
       this.serverErrorSource.next(error.statusText);
