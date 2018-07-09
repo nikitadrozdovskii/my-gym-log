@@ -26,8 +26,8 @@ export class ExeService implements OnInit {
   add(exe: Exe, date: string) {
     this.http.post<{message: String, exe: Exe}>(`http://localhost:3000/api/exes/${date}`, exe).
     subscribe((res)=>{
-      this.exes.push(res.exe);
-      this.exesUpdateRequestSource.next();
+      // this.exes.push(res.exe);
+        this.getExesFromServer(date);
       console.log('got response from post on add exe');
     }
     ,(error)=>{
