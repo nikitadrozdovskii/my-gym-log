@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   title = 'My Gym Log';
   exes: Exe[] = [];
   serverErrorMessage: string = null;
-  date: string = '2018-07-09';
+  private date: string;
 
   constructor(private exeService: ExeService) {
   }
@@ -37,5 +37,7 @@ export class AppComponent implements OnInit{
 
   dateSelected (event) {
     this.date = event.target.value;
+    this.exeService.getExesFromServer(this.date);
   }
+
 }

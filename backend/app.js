@@ -96,6 +96,13 @@ app.post("/api/exes/:date", (req, res, next) => {
     // // console.log(req.body);
 });
 
+app.get("/api/days/", (req, res, next) => {
+  res.status(200).json({
+    message: "Day not found",
+    exes: []
+  });
+});
+
 app.get("/api/days/:date", (req, res, next) => {
   Day.find({date: req.params.date}).then(
     (day) => {
@@ -105,7 +112,10 @@ app.get("/api/days/:date", (req, res, next) => {
       });
     }
   ).catch((error) => {
-      console.log("error" + error);
+    res.status(200).json({
+      message: "Day not found",
+      exes: []
+    });
 });
 });
 
