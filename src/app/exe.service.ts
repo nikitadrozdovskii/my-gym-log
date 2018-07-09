@@ -28,6 +28,7 @@ export class ExeService implements OnInit {
     subscribe((res)=>{
       this.exes.push(res.exe);
       this.exesUpdateRequestSource.next();
+      console.log('got response from post on add exe');
     }
     ,(error)=>{
       this.serverErrorSource.next(error.statusText);
@@ -60,13 +61,12 @@ export class ExeService implements OnInit {
     this.exes = exes;
   }
 
-  delete(id: number) {
+  delete(date: string, id: number) {
     this.http.delete<{message: string, exes: Exe[]}>(
-      `http://localhost:3000/api/exes/${id}`
+      `http://localhost:3000/api/exes/${date}/${id}`
     ).subscribe((response) => {
       // console.log(response);
-      //UNCOMMMMMMMMMMMMMMMMMMMMMMMMMEEEENT
-      // this.getExesFromServer();
+      this.getExesFromServer(date);
     },
     (error)=>{
       this.serverErrorSource.next(error.statusText);

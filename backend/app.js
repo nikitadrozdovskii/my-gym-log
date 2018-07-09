@@ -72,11 +72,25 @@ app.post("/api/exes/:date", (req, res, next) => {
       if (day.length === 0) {
         console.log('no day found');
         const newDay = new Day({date: req.params.date, exes: [{name: req.body.name, sets: req.body.sets}]});
-        newDay.save();
+        newDay.save().then((createdExe) => {
+          res.status(200).json({
+            exe: createdExe,
+            message: "Exe added to DB!"
+          });
+        }).catch((error) => {
+          console.log(error);
+        });
       } else {
-        console.log(day[0]);
+        // console.log(day[0]);
         day[0].exes.push({name: req.body.name, sets: req.body.sets});
-        day[0].save();
+        day[0].save().then((createdExe) => {
+          res.status(200).json({
+            exe: createdExe,
+            message: "Exe added to DB!"
+          });
+        }).catch((error) => {
+          console.log(error);
+        });;
       }
     }).catch((error)=>
   {console.log(error);}
@@ -105,10 +119,10 @@ app.get("/api/days/", (req, res, next) => {
 
 app.get("/api/days/:date", (req, res, next) => {
   Day.find({date: req.params.date}).then(
-    (day) => {
+    (days) => {
       res.status(200).json({
         message: "Exes fetched.",
-        exes: day[0].exes
+        exes: days[0].exes
       });
     }
   ).catch((error) => {
@@ -119,16 +133,34 @@ app.get("/api/days/:date", (req, res, next) => {
 });
 });
 
-app.delete("/api/exes/:id", (req, res, next) => {
-  Exe.deleteOne({_id: req.params.id }).then(() => {
-    res.status(200).json({
-      message: "Server successfully deleted exe."
-    });
-  }
-  )
-  .catch((error) => {
+app.delete("/api/exes/:date/:id", (req, res, next) => {
+  //find day, delete matching id exe
+  Day.find({date: req.params.date}).then(
+    (days) => {
+      days[0].exes.remove(req.params.id);
+      days[0].save().then(() => {
+        res.status(200).json({
+          message: "Server successfully deleted exe"
+        }
+        );}
+      ).catch((error) => {
+        console.log(error);
+      });;
+    }
+  ).catch((error) => {
     console.log(error);
-  });
+});
+
+
+  // Exe.deleteOne({_id: req.params.id }).then(() => {
+  //   res.status(200).json({
+  //     message: "Server successfully deleted exe."
+  //   });
+  // }
+  // )
+  // .catch((error) => {
+  //   console.log(error);
+  // });
 });
 
 app.put("/api/exes/:id", (req, res, next) => {

@@ -32,7 +32,7 @@ export class AppComponent implements OnInit{
   }
 
   onDeleteExe(index: number) {
-    this.exeService.delete(this.exes[index]._id);
+    this.exeService.delete(this.date, this.exes[index]._id);
   }
 
   dateSelected (event) {
