@@ -20,15 +20,18 @@ export class AppComponent implements OnInit{
 
   ngOnInit () {
     this.exeService.getExesFromServer(this.date);
+
     this.exeService.exesUpdated.subscribe(() => {
       this.exes = this.exeService.getExes();
     });
+
     this.exeService.serverErrored.subscribe((errorMessage) => {
       this.serverErrorMessage = errorMessage;
       setTimeout(() => {
         this.serverErrorMessage = null;
       },3000);
     });
+
   }
 
   onDeleteExe(index: number) {

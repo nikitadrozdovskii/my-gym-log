@@ -11,14 +11,21 @@ export class ProgPicComponent implements OnInit {
   @Input ('picDate') date : string; 
   imageFile;
   imageUrl: string;
-  imageWidth: string;
-  imageHeight: string;
-  aspectRatio: number;
+  imageSavedMessage: string;
+
   constructor(private exeService: ExeService) { }
 
   ngOnInit() {
     this.exeService.imageUpdated.subscribe((imagePath) => {
       this.imageUrl = imagePath;
+    });
+
+    this.exeService.imageSaved.subscribe(() => {
+      this.imageSavedMessage = 'Image saved!';
+      setTimeout(() => {
+        this.imageSavedMessage = null;
+        this.imageFile = null;
+      },3000);
     });
   }
 
