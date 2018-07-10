@@ -7,7 +7,8 @@ const exeSchema = mongoose.Schema({
 
 const daySchema = mongoose.Schema({
   date: { type: String, required: true },
-  exes: [exeSchema]
+  exes: [exeSchema],
+  imagePath: { type: String }
 });
 
 module.exports = mongoose.model('Day', daySchema);

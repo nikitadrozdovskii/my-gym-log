@@ -90,10 +90,29 @@ app.use((req, res, next) => {
 });
 
 app.post('/api/days/:date/image', multer({storage: storage}).single('image'), (req, res, next) => {
+  const url = req.protocol + '://' + req.get('host');
+  const imagePath = url + "/images/" + req.file.filename;
+  //find the day, if it does not exist, create it, add this image to its imagePath property
+  Day.find({date: req.params.date}).then((days) => {
+    if (days.length === 0) {
+      console.log('no day found');
+      const newDay = new Day({date: req.params.date, imagePath: imagePath});
+      newDay.save().then(() => {
+        res.status(200).json({
+          message: "Day created and imagePath added to it in DB"
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else {
+      //if day exists,add ImagePath to it
+      console.log(imagePath);
+      days[0].imagePath = imagePath;
+      days[0].save();
+    }
+  })
   res.status(200).json({
     message: "Image uploaded to server"
-  }).catch((error) => {
-    console.log(error);
   });
 });
 
