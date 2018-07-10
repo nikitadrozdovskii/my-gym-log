@@ -38,6 +38,7 @@ export class AppComponent implements OnInit{
   dateSelected (event) {
     this.date = event.target.value;
     this.exeService.getExesFromServer(this.date);
+    this.exeService.getImageFromServer(this.date);
   }
 
 }

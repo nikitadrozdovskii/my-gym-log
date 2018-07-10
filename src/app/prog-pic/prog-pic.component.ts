@@ -17,6 +17,9 @@ export class ProgPicComponent implements OnInit {
   constructor(private exeService: ExeService) { }
 
   ngOnInit() {
+    this.exeService.imageUpdated.subscribe((imagePath) => {
+      this.imageUrl = imagePath;
+    });
   }
 
   onImagePicked(event) {

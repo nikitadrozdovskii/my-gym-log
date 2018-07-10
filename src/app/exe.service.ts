@@ -12,9 +12,11 @@ export class ExeService implements OnInit {
   private exeEditRequestSource = new Subject<number>();
   private exesUpdateRequestSource = new Subject<Exe[]>();
   private serverErrorSource = new Subject<string>();
+  private imageUpdateSource = new Subject<string>();
   exeEditRequest = this.exeEditRequestSource.asObservable();
   exesUpdated = this.exesUpdateRequestSource.asObservable();
   serverErrored = this.serverErrorSource.asObservable();
+  imageUpdated = this.imageUpdateSource.asObservable();
 
 
   exeEditRequested(index: number) {
@@ -28,9 +30,19 @@ export class ExeService implements OnInit {
     //date will serve as a name
     imageData.append('image', image, date);
     this.http.post(`http://localhost:3000/api/days/${date}/image`, imageData)
-    .subscribe((res) => {
-      console.log('got repsonse to post image reqest');
+    .subscribe((res: {message: string, imagePath: string}) => {
+      // console.log(res.imagePath);
     });
+  }
+
+  getImageFromServer(date: string) {
+    this.http.get(`http://localhost:3000/api/days/${date}/image`).subscribe((res: {imagePath:string}) => {
+      this.imageUpdateSource.next(res.imagePath);
+    },(error) => {
+      this.imageUpdateSource.next(null);
+      console.log(error);
+    });
+
   }
 
   add(exe: Exe, date: string) {

@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -49,6 +50,7 @@ mongoose
 
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/images", express.static(path.join("backend/images")));
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -99,7 +101,8 @@ app.post('/api/days/:date/image', multer({storage: storage}).single('image'), (r
       const newDay = new Day({date: req.params.date, imagePath: imagePath});
       newDay.save().then(() => {
         res.status(200).json({
-          message: "Day created and imagePath added to it in DB"
+          message: "Day created and imagePath added to it in DB",
+          imagePath: imagePath
         });
       }).catch((error) => {
         console.log(error);
@@ -112,7 +115,21 @@ app.post('/api/days/:date/image', multer({storage: storage}).single('image'), (r
     }
   })
   res.status(200).json({
-    message: "Image uploaded to server"
+    message: "Image uploaded to server",
+    imagePath: imagePath
+  });
+});
+
+app.get("/api/days/:date/image", (req, res, next) => {
+  //if day is created, return imagePath for it
+  Day.find({date: req.params.date}).then((days) => {
+    res.status(200).json({
+      imagePath: days[0].imagePath
+    });
+  }).catch((error) => {
+    res.status(500).json({
+      message: "requested day does not exist"
+    })
   });
 });
 
