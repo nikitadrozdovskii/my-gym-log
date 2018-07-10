@@ -14,7 +14,7 @@
         To start please select the day
       </div>
       <div *ngIf='date'>
-        <app-prog-pic></app-prog-pic>
+        <app-prog-pic [picDate]="this.date"></app-prog-pic>
         <hr>
         <app-add-exe [AddExeDate]='this.date'></app-add-exe>
         <hr>

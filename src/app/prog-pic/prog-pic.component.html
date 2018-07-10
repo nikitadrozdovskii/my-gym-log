@@ -12,4 +12,9 @@
 
 
 <input type="file" #filePicker style="display:none" (change)="onImagePicked($event)">
-<button type="button" class="btn btn-outline-dark mt-3" (click)="filePicker.click()">Upload a picture</button>
+<div class="mt-3">
+    <button type="button" class="btn btn-outline-dark mx-2" (click)="filePicker.click()">Select a picture</button>
+    <button type="button" class="btn btn-outline-primary mx-2" (click)="uploadImage()">Use this picture for {{date}}</button>
+</div>
+
+

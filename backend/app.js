@@ -1,9 +1,32 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const multer = require("multer");
 
 const Exe = require('./models/exe');
 const Day = require('./models/day');
+
+const mimeTypeMap = {
+  'image/png' : 'png',
+  'image/jpeg': 'jpg',
+  'image/jpg' : 'jpg'
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const isValid = mimeTypeMap[file.mimetype];
+    let error = new Error('Invalid MIME type');
+    if (isValid) {
+      error = null;
+    }
+    cb(error, 'backend/images');
+  },
+  filename: (req, file, cb) => {
+    const name = file.originalname.split(' ').join('-');
+    const extension = mimeTypeMap[file.mimetype];
+    cb(null, name + '-' + Date.now() + '.' + extension);
+  }
+});
 
 const app = express();
 
@@ -64,6 +87,14 @@ app.use((req, res, next) => {
   
 
 
+});
+
+app.post('/api/days/:date/image', multer({storage: storage}).single('image'), (req, res, next) => {
+  res.status(200).json({
+    message: "Image uploaded to server"
+  }).catch((error) => {
+    console.log(error);
+  });
 });
 
 app.post("/api/exes/:date", (req, res, next) => {

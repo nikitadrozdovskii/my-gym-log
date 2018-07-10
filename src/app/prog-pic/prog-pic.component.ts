@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ExeService } from '../exe.service';
 
 @Component({
   selector: 'app-prog-pic',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProgPicComponent implements OnInit {
 
+  @Input ('picDate') date : string; 
+  imageFile;
   imageUrl: string;
   imageWidth: string;
   imageHeight: string;
   aspectRatio: number;
-  constructor() { }
+  constructor(private exeService: ExeService) { }
 
   ngOnInit() {
   }
@@ -30,8 +33,12 @@ export class ProgPicComponent implements OnInit {
     //   }
       image.src = this.imageUrl;
     };
+    this.imageFile=file;
     reader.readAsDataURL(file); 
   }
 
+  uploadImage() {
+    this.exeService.uploadImage(this.imageFile, this.date);
+  }
 
 }

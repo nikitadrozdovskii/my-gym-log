@@ -23,12 +23,21 @@ export class ExeService implements OnInit {
 
   constructor(private http: HttpClient) { }
 
+  uploadImage(image: File, date: string) {
+    const imageData = new FormData();
+    //date will serve as a name
+    imageData.append('image', image, date);
+    this.http.post(`http://localhost:3000/api/days/${date}/image`, imageData)
+    .subscribe((res) => {
+      console.log('got repsonse to post image reqest');
+    });
+  }
+
   add(exe: Exe, date: string) {
-    this.http.post<{message: String, exe: Exe}>(`http://localhost:3000/api/exes/${date}`, exe).
+    this.http.post<{message: String, exe: Exe}>(`http://localhost:3000/api/exes/${date}/image`, exe).
     subscribe((res)=>{
       // this.exes.push(res.exe);
         this.getExesFromServer(date);
-      console.log('got response from post on add exe');
     }
     ,(error)=>{
       this.serverErrorSource.next(error.statusText);
