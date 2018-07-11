@@ -168,6 +168,31 @@ app.use((err, req, res, next) => {
   }
   });
 
+app.delete("/api/days/:date/image", (req, res, next) => {
+  Day.findOneAndUpdate({date: req.params.date}, {imagePath:''}).then(() => {
+    
+    fs.unlink("backend/images/" + req.params.date + ".png", (err) => {
+      if (!err){
+        res.status(200).json({
+          message: "Image successfully deleted from DB and server"
+        });
+      }
+    });
+    fs.unlink("backend/images/" + req.params.date + ".jpg", (err) => {
+      if (!err){
+        res.status(200).json({
+          message: "Image successfully deleted from DB and server"
+        });
+      }
+    });
+
+  }).catch((error) => {
+    res.status(200).json({
+      message: 'Error deleting image from database'
+    });
+  });
+});
+
 app.get("/api/days/:date/image", (req, res, next) => {
   //if day is created, return imagePath for it
   Day.find({date: req.params.date}).then((days) => {
@@ -175,7 +200,7 @@ app.get("/api/days/:date/image", (req, res, next) => {
       imagePath: days[0].imagePath
     });
   }).catch((error) => {
-    res.status(200).json({
+    res.status(500).json({
       message: "Day is not found"
     })
   });

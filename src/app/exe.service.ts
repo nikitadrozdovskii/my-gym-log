@@ -40,6 +40,17 @@ export class ExeService implements OnInit {
     });
   }
 
+  deleteImage(date: string) {
+    this.http.delete(`http://localhost:3000/api/days/${date}/image`).subscribe(
+      (res: {message: string}) => {
+        console.log(res.message);
+      },(error) => {
+        // window.scrollTo(0, 0);
+        // this.serverErrorSource.next(error.error.message);
+      }
+    );
+  }
+
   getImageFromServer(date: string) {
     this.http.get(`http://localhost:3000/api/days/${date}/image`).subscribe((res: {imagePath:string}) => {
       this.imageUpdateSource.next(res.imagePath);

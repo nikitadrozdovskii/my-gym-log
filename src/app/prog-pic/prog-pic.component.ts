@@ -59,4 +59,8 @@ export class ProgPicComponent implements OnInit {
     this.exeService.uploadImage(this.imageFile, this.date);
   }
 
+  deleteImage() {
+    this.exeService.deleteImage(this.date);
+  }
+
 }
