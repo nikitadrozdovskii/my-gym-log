@@ -3,9 +3,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const multer = require("multer");
+const fs = require("fs");
 
 const Exe = require('./models/exe');
 const Day = require('./models/day');
+
 
 const mimeTypeMap = {
   'image/png' : 'png',
@@ -17,7 +19,42 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const isValid = mimeTypeMap[file.mimetype];
     let error = new Error('Invalid MIME type');
-    if (isValid) {
+
+    //making sure duplicates for the same date not stored if they have different extensions
+    const jpg = "backend/images/" + file.originalname + ".jpg";
+    const png = "backend/images/" + file.originalname + ".png";
+
+    let isDuplicate = false;
+    // Check if the file exists. If png is passed, and jpg exists, needs to delete jpg version and vice versa
+    fs.access(jpg, fs.constants.F_OK, (err) => {
+      console.log(`${file} ${err ? 'does not exist' : 'JPG version already exists'}`);
+      if (!err) {
+        if (mimeTypeMap[file.mimetype] === 'png'){
+          console.log('passed png is duplicate of existing jpg');
+          //TBD: delete existing jpg 
+          fs.unlink(jpg, (err) => {
+            if (err) throw err;
+            console.log('duplicate jpg was deleted');
+          });
+        }
+      }
+    });
+
+    fs.access(png, fs.constants.F_OK, (err) => {
+      console.log(`${file} ${err ? 'does not exist' : 'PNG version already exists'}`);
+      if (!err) {
+        if (mimeTypeMap[file.mimetype] === 'jpg'){
+          console.log('passed jpg is duplicate of existing png');
+          //TBD: delete existing png 
+          fs.unlink(png, (err) => {
+            if (err) throw err;
+            console.log('duplicate png was deleted');
+          });
+        }
+      }
+    });
+
+    if (isValid && !isDuplicate) {
       error = null;
     }
     cb(error, 'backend/images');
@@ -127,8 +164,8 @@ app.get("/api/days/:date/image", (req, res, next) => {
       imagePath: days[0].imagePath
     });
   }).catch((error) => {
-    res.status(500).json({
-      message: "requested day does not exist"
+    res.status(200).json({
+      message: "Day is not found"
     })
   });
 });
