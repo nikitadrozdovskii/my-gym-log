@@ -20,11 +20,16 @@ export class ProgPicComponent implements OnInit {
       this.imageUrl = imagePath;
     });
 
-    this.exeService.imageSaved.subscribe(() => {
-      this.imageSavedMessage = 'Image saved!';
+    this.exeService.imageSaved.subscribe((message: string) => {
+      if (message === 'deleted'){
+        this.imageSavedMessage = 'Picture deleted';
+        this.imageUrl = null;
+      } else {
+        this.imageSavedMessage = 'Picture saved!';
+        this.imageFile = null;
+      }
       setTimeout(() => {
         this.imageSavedMessage = null;
-        this.imageFile = null;
       },3000);
     });
   }

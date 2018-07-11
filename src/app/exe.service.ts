@@ -43,7 +43,7 @@ export class ExeService implements OnInit {
   deleteImage(date: string) {
     this.http.delete(`http://localhost:3000/api/days/${date}/image`).subscribe(
       (res: {message: string}) => {
-        console.log(res.message);
+        this.imageSaveSource.next('deleted');
       },(error) => {
         // window.scrollTo(0, 0);
         // this.serverErrorSource.next(error.error.message);
