@@ -31,20 +31,28 @@ export class ProgPicComponent implements OnInit {
 
   onImagePicked(event) {
     const file = event.target.files[0];
-    const reader = new FileReader();
+    if (file.size < 4000000){
+      const reader = new FileReader();
   
-    reader.onload = () => {
-      const image = new Image;
-      this.imageUrl = reader.result;
-    //   image.onload = () => {
-    //     //get dimensions of image
-    //     console.log(this.imageHeight);
-    //     console.log(this.imageWidth);
-    //   }
-      image.src = this.imageUrl;
-    };
-    this.imageFile=file;
-    reader.readAsDataURL(file); 
+      reader.onload = () => {
+        const image = new Image;
+        this.imageUrl = reader.result;
+      //   image.onload = () => {
+      //     //get dimensions of image
+      //     console.log(this.imageHeight);
+      //     console.log(this.imageWidth);
+      //   }
+        image.src = this.imageUrl;
+      };
+      this.imageFile=file;
+      reader.readAsDataURL(file); 
+    } else {
+      this.imageSavedMessage = "Chosen file too big, please select file under 4MB."
+      setTimeout(()=>{
+        this.imageSavedMessage = null;
+      }, 3000);
+    }
+
   }
 
   uploadImage() {
