@@ -36,7 +36,7 @@ export class ExeService implements OnInit {
       this.imageSaveSource.next();
     },(error) => {
       window.scrollTo(0, 0);
-      this.serverErrorSource.next(error.statusText);
+      this.serverErrorSource.next(error.error.message);
     });
   }
 

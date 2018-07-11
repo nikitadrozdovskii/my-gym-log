@@ -17,6 +17,8 @@ const mimeTypeMap = {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+
+    console.log(file);
     const isValid = mimeTypeMap[file.mimetype];
     let error = new Error('Invalid MIME type');
 
@@ -128,7 +130,7 @@ app.use((req, res, next) => {
 
 });
 
-app.post('/api/days/:date/image', multer({storage: storage}).single('image'), (req, res, next) => {
+app.post('/api/days/:date/image', multer({limits: {fileSize: 4000000, files:1}, storage: storage}).single('image'), (req, res, next) => {
   const url = req.protocol + '://' + req.get('host');
   const imagePath = url + "/images/" + req.file.filename;
   //find the day, if it does not exist, create it, add this image to its imagePath property
@@ -156,6 +158,15 @@ app.post('/api/days/:date/image', multer({storage: storage}).single('image'), (r
     imagePath: imagePath
   });
 });
+
+//catch file size error and return it to client
+app.use((err, req, res, next) => {
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    res.status(500).json(
+      {message: 'File too big'}
+    );
+  }
+  });
 
 app.get("/api/days/:date/image", (req, res, next) => {
   //if day is created, return imagePath for it
