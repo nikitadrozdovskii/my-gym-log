@@ -10,6 +10,7 @@ import { AddSetComponent } from './save-the-day/add-set/add-set.component';
 import { ProgPicComponent } from './save-the-day/prog-pic/prog-pic.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SaveTheDayComponent } from './save-the-day/save-the-day.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SaveTheDayComponent } from './save-the-day/save-the-day.component';
     AddExeComponent,
     AddSetComponent,
     ProgPicComponent,
-    SaveTheDayComponent
+    SaveTheDayComponent,
+    AnalyticsComponent
   ],
   imports: [
     BrowserModule,
