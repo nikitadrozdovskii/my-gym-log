@@ -9,8 +9,14 @@
             <li class="nav-item">
               <a class="nav-link" routerLinkActive="active" routerLink="save">Save The Day<span class="sr-only"></span></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" routerLink="analyze" routerLinkActive="active">Analyze</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Analyze
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" routerLink="analyze/compare-pics">Compare Progress Pictures</a>
+                <a class="dropdown-item" routerLink="analyze/analyze-exe">Analyze Exercise</a>
+              </div>
             </li>
           </ul>
         </div>
