@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
-import {Exe} from '../exe';
-import {Set} from '../set';
-import {ExeService} from '../exe.service';
+import {Exe} from '../../exe';
+import {Set} from '../../set';
+import {ExeService} from '../../exe.service';
 import {Subscription} from 'rxjs';
 
 // Contains form to add exercise with repeating AddSetComponent, whose number changes depending on user's input, listens to set updated

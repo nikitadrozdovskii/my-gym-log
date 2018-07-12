@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ExeService } from '../exe.service';
+import { ExeService } from '../../exe.service';
 
 @Component({
   selector: 'app-prog-pic',

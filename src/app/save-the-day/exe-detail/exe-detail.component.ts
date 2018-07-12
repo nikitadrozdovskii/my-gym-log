@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Exe} from '../exe';
-import {ExeService} from '../exe.service';
+import {Exe} from '../../exe';
+import {ExeService} from '../../exe.service';
 
 // Contains template for displaying individual exercise that is passed down from AppComponent via @Input. On clicking delete icon, emits
 // event with index of exercise to be deleted

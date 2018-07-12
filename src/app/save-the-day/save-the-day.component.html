@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col md-12">
+    <hr>
+    <div *ngIf="serverErrorMessage" class="alert alert-warning" role="alert">
+      <h5>{{serverErrorMessage}}</h5>
+      There was a server problem. Please try again.
+    </div>
+    <h3>Select Date:</h3>
+    <input (change)="dateSelected($event)" type="date" name="date"/>
+    <div *ngIf="!date" class="alert alert-primary mt-3" role="alert">
+      <h5>Tip:</h5>
+      To start please select the day
+    </div>
+    <div *ngIf='date'>
+      <app-prog-pic [picDate]="this.date"></app-prog-pic>
+      <hr>
+      <app-add-exe [AddExeDate]='this.date'></app-add-exe>
+      <hr>
+      <app-exe-detail *ngFor="let exe of exes; let i=index" [detailedExe]="exe" [ExeIndex]="i" (deleteExe)="onDeleteExe($event)"></app-exe-detail>
+    </div>
+  </div>
+</div>
