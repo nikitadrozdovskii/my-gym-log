@@ -6,7 +6,6 @@ import { AnalyticsComponent } from "./analytics/analytics.component";
 const appRoutes: Routes = [
     {path: '', component: SaveTheDayComponent, pathMatch: 'full'},
     {path: 'save', component: SaveTheDayComponent},
-    {path: 'analyze', component: AnalyticsComponent},
     {path: '**', component: SaveTheDayComponent}
 ];
 

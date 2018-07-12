@@ -10,6 +10,7 @@ import { AddSetComponent } from './save-the-day/add-set/add-set.component';
 import { ProgPicComponent } from './save-the-day/prog-pic/prog-pic.component';
 import { AppRoutingModule } from './app-routing.module';
 import { SaveTheDayComponent } from './save-the-day/save-the-day.component';
+import { AnalyticsModule } from './analytics/analytics.module';
 import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
@@ -19,13 +20,13 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     AddExeComponent,
     AddSetComponent,
     ProgPicComponent,
-    SaveTheDayComponent,
-    AnalyticsComponent
+    SaveTheDayComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    AnalyticsModule,
     AppRoutingModule
   ],
   providers: [],
