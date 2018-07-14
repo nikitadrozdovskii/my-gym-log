@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 });
 
 
-app.use(imageRoutes);
+app.use("/api/image", imageRoutes);
 app.use("/api/exes", exesRoutes);
 
 module.exports = app;

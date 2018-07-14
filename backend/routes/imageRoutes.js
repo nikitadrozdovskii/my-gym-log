@@ -66,7 +66,7 @@ const storage = multer.diskStorage({
   });
 
 //post picture for provided date
-router.post('/api/days/:date/image', multer({limits: {fileSize: 4000000, files:1}, storage: storage}).single('image'), (req, res, next) => {
+router.post('/:date', multer({limits: {fileSize: 4000000, files:1}, storage: storage}).single('image'), (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
     const imagePath = url + "/images/" + req.file.filename;
     //find the day, if it does not exist, create it, add this image to its imagePath property
@@ -104,7 +104,7 @@ router.use((err, req, res, next) => {
     });
   
 //delete picture for provided date
-router.delete("/api/days/:date/image", (req, res, next) => {
+router.delete("/:date", (req, res, next) => {
     Day.findOneAndUpdate({date: req.params.date}, {imagePath:''}).then(() => {
       
       fs.unlink("backend/images/" + req.params.date + ".png", (err) => {
@@ -130,7 +130,7 @@ router.delete("/api/days/:date/image", (req, res, next) => {
   });
   
 //return picture for provided date
-router.get("/api/days/:date/image", (req, res, next) => {
+router.get("/:date", (req, res, next) => {
     //if day is created, return imagePath for it
     Day.find({date: req.params.date}).then((days) => {
       res.status(200).json({

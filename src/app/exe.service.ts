@@ -31,7 +31,7 @@ export class ExeService implements OnInit {
     const imageData = new FormData();
     //date will serve as a name
     imageData.append('image', image, date);
-    this.http.post(`http://localhost:3000/api/days/${date}/image`, imageData)
+    this.http.post(`http://localhost:3000/api/image/${date}`, imageData)
     .subscribe((res: {message: string, imagePath: string}) => {
       this.imageSaveSource.next();
     },(error) => {
@@ -41,7 +41,7 @@ export class ExeService implements OnInit {
   }
 
   deleteImage(date: string) {
-    this.http.delete(`http://localhost:3000/api/days/${date}/image`).subscribe(
+    this.http.delete(`http://localhost:3000/api/image/${date}`).subscribe(
       (res: {message: string}) => {
         this.imageSaveSource.next('deleted');
       },(error) => {
@@ -52,7 +52,7 @@ export class ExeService implements OnInit {
   }
 
   getImageFromServer(date: string) {
-    this.http.get(`http://localhost:3000/api/days/${date}/image`).subscribe((res: {imagePath:string}) => {
+    this.http.get(`http://localhost:3000/api/image/${date}`).subscribe((res: {imagePath:string}) => {
       this.imageUpdateSource.next(res.imagePath);
     },(error) => {
       this.imageUpdateSource.next(null);
