@@ -42,11 +42,6 @@ export class ProgPicComponent implements OnInit {
       reader.onload = () => {
         const image = new Image;
         this.imageUrl = reader.result;
-      //   image.onload = () => {
-      //     //get dimensions of image
-      //     console.log(this.imageHeight);
-      //     console.log(this.imageWidth);
-      //   }
         image.src = this.imageUrl;
       };
       this.imageFile=file;
