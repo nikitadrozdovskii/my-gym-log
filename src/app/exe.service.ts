@@ -78,7 +78,7 @@ export class ExeService implements OnInit {
   getExesFromServer(date: string){
     //TBD get exes from server
     this.http.get<{message: string, exes: Exe[]}>(
-      `http://localhost:3000/api/days/${date}`
+      `http://localhost:3000/api/exes/${date}`
     ).subscribe((exes) => {
       this.exes = exes.exes;
       this.exesUpdateRequestSource.next();
@@ -116,7 +116,7 @@ export class ExeService implements OnInit {
   }
 
   edit(date: string, id: number, exe: Exe) {
-    this.http.put(`http://localhost:3000/api/days/${date}/${id}`, exe).subscribe((response)=> {
+    this.http.put(`http://localhost:3000/api/exes/${date}/${id}`, exe).subscribe((response)=> {
     this.getExesFromServer(date);      
     }
     ,(error)=>{
