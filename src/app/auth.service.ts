@@ -1,14 +1,19 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 @Injectable({
     providedIn: 'root'
   })
   export class AuthService implements OnInit {
-    constructor(private http: HttpClient){}
 
+    private loginSource = new Subject<boolean>();  
+    loggedInStatus = this.loginSource.asObservable();
     private token: string;
+
+    constructor(private http: HttpClient, private router: Router){}
 
     ngOnInit() {
 
@@ -31,9 +36,16 @@ import { HttpClient } from '@angular/common/http';
       this.http.post('http://localhost:3000/api/auth/login', {email, password})
       .subscribe((res: {token: string}) => {
         this.token = res.token;
+        this.loginSource.next(true);
       }, (error) => {
         console.log(error);
       });
+    }
+
+    logout() {
+      this.token = null;
+      this.loginSource.next(false);
+      this.router.navigate(["/login"]);
     }
   }
 
