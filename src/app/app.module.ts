@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ExeDetailComponent } from './save-the-day/exe-detail/exe-detail.component';
 import { AddExeComponent } from './save-the-day/add-exe/add-exe.component';
@@ -14,6 +14,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthInterceptor } from './auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { SignupComponent } from './signup/signup.component';
     AnalyticsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

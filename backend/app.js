@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const imageRoutes = require("./routes/imageRoutes");
 const exesRoutes = require("./routes/exesRoutes");
 const authRoutes = require("./routes/authRoutes");
+const checkAuth = require("./middleware/checkAuth");
 
 const app = express();
 
@@ -36,7 +37,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -66,8 +67,8 @@ app.use((req, res, next) => {
 });
 
 
-app.use("/api/image", imageRoutes);
-app.use("/api/exes", exesRoutes);
+app.use("/api/image", checkAuth, imageRoutes);
+app.use("/api/exes", checkAuth, exesRoutes);
 app.use("/api/auth", authRoutes);
 
 module.exports = app;

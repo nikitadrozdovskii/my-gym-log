@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require('../models/user');
+const jwt = require('jsonwebtoken');
 
 
 const router = express.Router();
@@ -39,7 +40,15 @@ router.post("/login", (req, res, next) => {
                     message: 'Wrong password'
                 });
             }
-            // return JSON WEB TOKEN HERE
+            // if user and password match, return JWT
+            const token = jwt.sign(
+                { email: users[0].email, userId: users[0]._id },
+                "secret",
+                { expiresIn: "1hr"}
+            ); 
+            res.status(200).json({
+                token: token
+            });
         });
     })
 })

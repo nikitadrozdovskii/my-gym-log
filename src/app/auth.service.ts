@@ -8,8 +8,14 @@ import { HttpClient } from '@angular/common/http';
   export class AuthService implements OnInit {
     constructor(private http: HttpClient){}
 
+    private token: string;
+
     ngOnInit() {
 
+    }
+
+    getToken() {
+      return this.token;
     }
 
     signup(email: string, password: string) {
@@ -23,8 +29,8 @@ import { HttpClient } from '@angular/common/http';
 
     login(email: string, password: string) {
       this.http.post('http://localhost:3000/api/auth/login', {email, password})
-      .subscribe((res: {message: string}) => {
-        console.log(res.message);
+      .subscribe((res: {token: string}) => {
+        this.token = res.token;
       }, (error) => {
         console.log(error);
       });
