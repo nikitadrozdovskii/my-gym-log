@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 
     private loginSource = new Subject<boolean>();  
     loggedInStatus = this.loginSource.asObservable();
+    private authErrorSource = new Subject<string>();  
+    authErrored = this.authErrorSource.asObservable();
     private token: string;
 
     constructor(private http: HttpClient, private router: Router){}
@@ -28,7 +30,8 @@ import { Router } from '@angular/router';
         .subscribe((res: {message: string}) => {
           console.log(res.message);
         }, (error) => {
-          console.log(error);
+          console.log(error.error.error.name);
+            this.authErrorSource.next('This email appears to be in use. Please use a different one.');
         });
     }
 

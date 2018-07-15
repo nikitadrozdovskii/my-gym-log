@@ -1,4 +1,7 @@
 <h3 class="mt-2">Create a new account</h3>
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  {{errorMessage}}
+</div>
 <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>

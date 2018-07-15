@@ -9,10 +9,17 @@ import { AuthService } from '../auth.service';
 export class SignupComponent implements OnInit {
   email: string;
   password: string; 
+  errorMessage: string;
   constructor(private authService: AuthService) {
    }
 
   ngOnInit() {
+    this.authService.authErrored.subscribe((message) => {
+      this.errorMessage = message;
+      setTimeout(() => {
+        this.errorMessage = null;
+      },3000);
+    });
   }
 
   onSubmit() {
