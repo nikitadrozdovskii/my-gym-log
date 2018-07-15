@@ -1,3 +1,12 @@
-<p>
-  login works!
-</p>
+<h3 class="mt-2">Login with existing account</h3>
+<form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="loginInput1">Email address</label>
+    <input type="email" class="form-control" id="loginInput1" placeholder="my@email.com" [(ngModel)]="email" name="email">
+  </div>
+  <div class="form-group">
+    <label for="loginPassword">Password</label>
+    <input type="password" class="form-control" id="loginPassword" placeholder="password" [(ngModel)]="password" name="password">
+  </div>
+  <button type="submit" class="btn btn-primary">Log in</button>
+</form>

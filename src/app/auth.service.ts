@@ -20,6 +20,15 @@ import { HttpClient } from '@angular/common/http';
           console.log(error);
         });
     }
+
+    login(email: string, password: string) {
+      this.http.post('http://localhost:3000/api/auth/login', {email, password})
+      .subscribe((res: {message: string}) => {
+        console.log(res.message);
+      }, (error) => {
+        console.log(error);
+      });
+    }
   }
 
   
