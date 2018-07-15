@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { SaveTheDayComponent } from './save-the-day/save-the-day.component';
 import { AnalyticsModule } from './analytics/analytics.module';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     AddExeComponent,
     AddSetComponent,
     ProgPicComponent,
-    SaveTheDayComponent
+    SaveTheDayComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
