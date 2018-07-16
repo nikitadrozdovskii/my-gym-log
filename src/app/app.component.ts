@@ -20,6 +20,7 @@ export class AppComponent implements OnInit, OnDestroy{
     this.subscription = this.authService.loggedInStatus.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
     });
+    this.checkLSToken();
   }
 
   ngOnDestroy() {
@@ -28,5 +29,24 @@ export class AppComponent implements OnInit, OnDestroy{
 
   logout() {
     this.authService.logout();
+  }
+
+  //gets auth token from local storage, check validity and decides login status accordingly
+  checkLSToken() {
+    //CHECK IF THERE IS NO TOKEN!!!
+    const token = localStorage.getItem('token');
+
+    const parsedExpiresAt = Date.parse(localStorage.getItem('expiresAt'));
+    const now = Date.now();
+    if (parsedExpiresAt < now) {
+      //expired token, clear local storage, return
+      localStorage.removeItem('token');
+      localStorage.removeItem('expiresAt');
+      return;
+    }
+    const expiresIn = parsedExpiresAt - now;
+    //save token to auth service
+    this.authService.setValidToken(token, expiresIn);
+
   }
 }
