@@ -4,13 +4,14 @@ import { SaveTheDayComponent } from "./save-the-day/save-the-day.component";
 import { AnalyticsComponent } from "./analytics/analytics.component";
 import { SignupComponent } from "./signup/signup.component";
 import { LoginComponent } from "./login/login.component";
+import { AuthGuard } from "./auth.guard";
 
 const appRoutes: Routes = [
-    {path: '', component: SaveTheDayComponent, pathMatch: 'full'},
-    {path: 'save', component: SaveTheDayComponent},
+    {path: '', component: LoginComponent, pathMatch: 'full'},
+    {path: 'save', component: SaveTheDayComponent, canActivate: [AuthGuard]},
     {path: 'signup', component: SignupComponent},
     {path: 'login', component: LoginComponent},
-    {path: '**', component: SaveTheDayComponent}
+    {path: '**', component: LoginComponent}
 ];
 
 
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     ],
     exports: [
         RouterModule
-    ]
+    ],
+    providers: [AuthGuard]
 })
 export class AppRoutingModule {}
