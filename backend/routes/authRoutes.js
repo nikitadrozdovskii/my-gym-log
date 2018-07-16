@@ -46,8 +46,10 @@ router.post("/login", (req, res, next) => {
                 "secret",
                 { expiresIn: "1hr"}
             ); 
+            // return token and expiration time in seconds
             res.status(200).json({
-                token: token
+                token: token,
+                expiresIn: 3600
             });
         });
     })

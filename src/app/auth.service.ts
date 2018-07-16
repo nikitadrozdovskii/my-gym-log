@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
     private authErrorSource = new Subject<string>();  
     authErrored = this.authErrorSource.asObservable();
     private token: string;
+    private tokenTimer: any;
 
     constructor(private http: HttpClient, private router: Router){}
 
@@ -36,9 +37,13 @@ import { Router } from '@angular/router';
 
     login(email: string, password: string) {
       this.http.post('http://localhost:3000/api/auth/login', {email, password})
-      .subscribe((res: {token: string}) => {
+      .subscribe((res: {token: string, expiresIn: string}) => {
         this.token = res.token;
         this.loginSource.next(true);
+        console.log(res.expiresIn);
+        this.tokenTimer = setTimeout(() => {
+          this.logout();
+        }, res.expiresIn);
         this.router.navigate(["/save"]);
       }, (error) => {
         this.authErrorSource.next('Email/password combination is incorrect');
@@ -48,6 +53,7 @@ import { Router } from '@angular/router';
     logout() {
       this.token = null;
       this.loginSource.next(false);
+      clearTimeout(this.tokenTimer);
       this.router.navigate(["/login"]);
     }
   }
