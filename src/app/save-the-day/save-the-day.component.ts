@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Exe } from '../exe';
 import {ExeService} from '../exe.service';
 
@@ -7,28 +7,34 @@ import {ExeService} from '../exe.service';
   templateUrl: './save-the-day.component.html',
   styleUrls: ['./save-the-day.component.css']
 })
-export class SaveTheDayComponent implements OnInit {
+export class SaveTheDayComponent implements OnInit, OnDestroy {
 
   exes: Exe[] = [];
   serverErrorMessage: string = null;
   private date: string;
+  subscription1;
+  subscription2;
 
   constructor(private exeService: ExeService) {
   }
 
   ngOnInit () {
     this.exeService.getExesFromServer(this.date);
-
-    this.exeService.exesUpdated.subscribe(() => {
+    this.subscription1 =this.exeService.exesUpdated.subscribe(() => {
       this.exes = this.exeService.getExes();
     });
 
-    this.exeService.serverErrored.subscribe((errorMessage) => {
+    this.subscription2 = this.exeService.serverErrored.subscribe((errorMessage) => {
       this.serverErrorMessage = errorMessage;
       setTimeout(() => {
         this.serverErrorMessage = null;
       },3000);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
 
   }
 

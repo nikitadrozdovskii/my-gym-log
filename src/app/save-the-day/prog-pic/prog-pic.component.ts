@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ExeService } from '../../exe.service';
 
 @Component({
@@ -6,21 +6,23 @@ import { ExeService } from '../../exe.service';
   templateUrl: './prog-pic.component.html',
   styleUrls: ['./prog-pic.component.css']
 })
-export class ProgPicComponent implements OnInit {
+export class ProgPicComponent implements OnInit, OnDestroy {
 
   @Input ('picDate') date : string; 
   imageFile;
   imageUrl: string;
   imageSavedMessage: string;
+  subscription1;
+  subscription2;
 
   constructor(private exeService: ExeService) { }
 
   ngOnInit() {
-    this.exeService.imageUpdated.subscribe((imagePath) => {
+    this.subscription1 = this.exeService.imageUpdated.subscribe((imagePath) => {
       this.imageUrl = imagePath;
     });
 
-    this.exeService.imageSaved.subscribe((message: string) => {
+    this.subscription2 = this.exeService.imageSaved.subscribe((message: string) => {
       if (message === 'deleted'){
         this.imageSavedMessage = 'Picture deleted';
         this.imageUrl = null;
@@ -32,6 +34,11 @@ export class ProgPicComponent implements OnInit {
         this.imageSavedMessage = null;
       },3000);
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
   }
 
   onImagePicked(event) {

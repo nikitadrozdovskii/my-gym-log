@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { AuthService } from './auth.service';
 
 // Hosts AddExe component with form to add a new exercise, gets array of exercises from ExeService, displays it with ExeDetail component.
@@ -8,17 +8,22 @@ import { AuthService } from './auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit, OnDestroy{
   title = 'My Gym Log';
   loggedIn: boolean;
+  subscription;
 
   constructor(private authService: AuthService) {
   }
 
   ngOnInit () {
-    this.authService.loggedInStatus.subscribe((loggedIn) => {
+    this.subscription = this.authService.loggedInStatus.subscribe((loggedIn) => {
       this.loggedIn = loggedIn;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   logout() {
