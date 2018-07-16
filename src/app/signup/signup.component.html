@@ -4,12 +4,18 @@
 </div>
 <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="my@email.com" [(ngModel)]="email" name="email">
+    <label for="loginInput1">Email address</label>
+    <input type="email" class="form-control" [class.is-invalid]="userEmail.invalid  && (userEmail.dirty || userEmail.touched)" id="loginInput1" placeholder="my@email.com" [(ngModel)]="email" name="email" required #userEmail="ngModel">
+    <div class="invalid-feedback" *ngIf="userEmail.invalid  && (userEmail.dirty || userEmail.touched)">
+      Email cannot be empty.
+    </div>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="password" [(ngModel)]="password" name="password">
+    <label for="loginPassword">Password</label>
+    <input type="password" class="form-control" [class.is-invalid]="userPassword.invalid  && (userPassword.dirty || userPassword.touched)" id="loginPassword" placeholder="password" [(ngModel)]="password" name="password" required minlength="8" #userPassword="ngModel">
+    <div class="invalid-feedback" *ngIf="userPassword.invalid  && (userPassword.dirty || userPassword.touched)">
+      Password cannot be empty and has to be at least 8 characters.
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Sign up</button>
+  <button type="submit" class="btn btn-primary" *ngIf="userEmail.valid && userPassword.valid">Sing up</button>
 </form>
