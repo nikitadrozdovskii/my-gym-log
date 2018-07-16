@@ -30,7 +30,6 @@ import { Router } from '@angular/router';
         .subscribe((res: {message: string}) => {
           console.log(res.message);
         }, (error) => {
-          console.log(error.error.error.name);
             this.authErrorSource.next('This email appears to be in use. Please use a different one.');
         });
     }
@@ -40,8 +39,9 @@ import { Router } from '@angular/router';
       .subscribe((res: {token: string}) => {
         this.token = res.token;
         this.loginSource.next(true);
+        this.router.navigate(["/save"]);
       }, (error) => {
-        console.log(error);
+        this.authErrorSource.next('Email/password combination is incorrect');
       });
     }
 
