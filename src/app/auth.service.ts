@@ -9,12 +9,13 @@ import { Router } from '@angular/router';
   })
   export class AuthService implements OnInit {
 
-    private loginSource = new Subject<boolean>();  
+    private loginSource = new Subject<{status: boolean, user: string}>();  
     loggedInStatus = this.loginSource.asObservable();
     private authErrorSource = new Subject<string>();  
     authErrored = this.authErrorSource.asObservable();
     private token: string;
     private tokenTimer: any;
+    user: string;
 
     constructor(private http: HttpClient, private router: Router){}
 
@@ -26,9 +27,9 @@ import { Router } from '@angular/router';
     }
 
     //set valid token, switch app state to loggedin
-    setValidToken(token: string, expiresIn: number) {
+    setValidToken(token: string, expiresIn: number, user: string) {
       this.token = token;
-      this.loginSource.next(true);
+      this.loginSource.next({status: true, user: user});
 
       this.tokenTimer = setTimeout(() => {
         this.logout();
@@ -53,13 +54,14 @@ import { Router } from '@angular/router';
       this.http.post('http://localhost:3000/api/auth/login', {email, password})
       .subscribe((res: {token: string, expiresIn: string}) => {
         this.token = res.token;
-        this.loginSource.next(true);
+        this.loginSource.next({status: true, user: email});
 
         this.tokenTimer = setTimeout(() => {
           this.logout();
         }, +res.expiresIn);
 
-        this.saveTokenLS(res.token, +res.expiresIn);
+        this.user = email;
+        this.saveTokenLS(res.token, +res.expiresIn, email);
         this.router.navigate(["/save"]);
       }, (error) => {
         this.authErrorSource.next('Email/password combination is incorrect');
@@ -68,10 +70,12 @@ import { Router } from '@angular/router';
 
     logout() {
       this.token = null;
-      this.loginSource.next(false);
+      this.user = null;
+      this.loginSource.next({status: false, user: null});
       clearTimeout(this.tokenTimer);
       localStorage.removeItem('token');
       localStorage.removeItem('expiresAt');
+      localStorage.removeItem('user');
       this.router.navigate(["/login"]);
     }
 
@@ -79,22 +83,25 @@ import { Router } from '@angular/router';
   checkLSToken() {
     const token = localStorage.getItem('token');
     const parsedExpiresAt = Date.parse(localStorage.getItem('expiresAt'));
+    const user = localStorage.getItem('user');
     const now = Date.now();
     if (parsedExpiresAt < now) {
       //expired token, clear local storage, return
       localStorage.removeItem('token');
       localStorage.removeItem('expiresAt');
+      localStorage.removeItem('user');
       return;
     }
     const expiresIn = parsedExpiresAt - now;
     //save token to auth service
-    this.setValidToken(token, expiresIn);
+    this.setValidToken(token, expiresIn, user);
   }
 
-    saveTokenLS(token: string, expiresIn: number) {
+    saveTokenLS(token: string, expiresIn: number, user: string) {
       localStorage.setItem('token', token);
       const expiresAt = new Date(Date.now() + expiresIn);
       localStorage.setItem('expiresAt', expiresAt.toISOString());
+      localStorage.setItem('user', user);
     }
   }
 

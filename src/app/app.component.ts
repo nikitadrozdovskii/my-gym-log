@@ -12,13 +12,15 @@ export class AppComponent implements OnInit, OnDestroy{
   title = 'My Gym Log';
   loggedIn: boolean;
   subscription;
+  user: string;
 
   constructor(private authService: AuthService) {
   }
 
   ngOnInit () {
     this.subscription = this.authService.loggedInStatus.subscribe((loggedIn) => {
-      this.loggedIn = loggedIn;
+      this.loggedIn = loggedIn.status;
+      this.user = loggedIn.user;
     });
     this.authService.checkLSToken();
   }

@@ -5,7 +5,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
+          <ul class="navbar-nav mr-auto">
             <li class="nav-item" *ngIf="loggedIn">
               <a class="nav-link" routerLinkActive="active" routerLink="save">Save The Day<span class="sr-only"></span></a>
             </li>
@@ -24,10 +24,13 @@
             <li class="nav-item"  *ngIf="!loggedIn">
               <a class="nav-link" routerLinkActive="active" routerLink="login">Login<span class="sr-only"></span></a>
             </li>
-            <form class="form-inline"  *ngIf="loggedIn">
-              <button class="btn btn-sm btn-outline-secondary" type="button" (click)="logout()">Logout</button>
-            </form>
-          </ul>
+          </ul>   
+          <span *ngIf="user" class="navbar-text mr-2">
+            Welcome, {{user}}
+          </span>
+          <form class="form-inline"  *ngIf="loggedIn">
+            <button class="btn btn-sm btn-outline-secondary" type="button" (click)="logout()">Logout</button>
+          </form>     
         </div>
     </div>
   </nav>
