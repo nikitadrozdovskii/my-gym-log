@@ -40,7 +40,7 @@ import { Router } from '@angular/router';
     signup(email: string, password: string) {
         this.http.post('http://localhost:3000/api/auth/signup', {email, password})
         .subscribe((res: {message: string}) => {
-          console.log(res.message);
+          // console.log(res.message);
         }, (error) => {
             this.authErrorSource.next('This email appears to be in use. Please use a different one.');
         });
