@@ -19,8 +19,8 @@ const storage = multer.diskStorage({
       let error = new Error('Invalid MIME type');
   
       //making sure duplicates for the same date not stored if they have different extensions
-      const jpg = "backend/images/" + file.originalname + ".jpg";
-      const png = "backend/images/" + file.originalname + ".png";
+      const jpg = `backend/images/${file.originalname}-${req.userId}.jpg`;
+      const png = `backend/images/${file.originalname}-${req.userId}.png`;
   
       let isDuplicate = false;
       // Check if the file exists. If png is passed, and jpg exists, needs to delete jpg version and vice versa
@@ -61,19 +61,19 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
       const name = file.originalname.split(' ').join('-');
       const extension = mimeTypeMap[file.mimetype];
-      cb(null, name + '.' + extension);
+      cb(null, `${name}-${req.userId}.${extension}`);
     }
   });
 
-//post picture for provided date
+//post picture for provided date and userId from token
 router.post('/:date', multer({limits: {fileSize: 4000000, files:1}, storage: storage}).single('image'), (req, res, next) => {
     const url = req.protocol + '://' + req.get('host');
-    const imagePath = url + "/images/" + req.file.filename;
+    const imagePath = url + "/images/" + req.file.filename; 
     //find the day, if it does not exist, create it, add this image to its imagePath property
-    Day.find({date: req.params.date}).then((days) => {
+    Day.find({date: req.params.date, user: req.userId}).then((days) => { //query for user as well
       if (days.length === 0) {
         console.log('no day found');
-        const newDay = new Day({date: req.params.date, imagePath: imagePath});
+        const newDay = new Day({date: req.params.date, imagePath: imagePath, user: req.userId}); 
         newDay.save().then(() => {
           res.status(200).json({
             message: "Day created and imagePath added to it in DB",
@@ -103,22 +103,27 @@ router.use((err, req, res, next) => {
     }
     });
   
-//delete picture for provided date
+//delete picture for provided date and userId
 router.delete("/:date", (req, res, next) => {
-    Day.findOneAndUpdate({date: req.params.date}, {imagePath:''}).then(() => {
+    Day.findOneAndUpdate({date: req.params.date, user: req.userId}, {imagePath:''}).then(() => {
       
-      fs.unlink("backend/images/" + req.params.date + ".png", (err) => {
+      fs.unlink(`backend/images/${req.params.date}-${req.userId}.png`, (err) => {
         if (!err){
           res.status(200).json({
             message: "Image successfully deleted from DB and server"
           });
+        } else {
+        console.log(err);
+
         }
       });
-      fs.unlink("backend/images/" + req.params.date + ".jpg", (err) => {
+      fs.unlink(`backend/images/${req.params.date}-${req.userId}.jpg`, (err) => {
         if (!err){
           res.status(200).json({
             message: "Image successfully deleted from DB and server"
           });
+        } else {
+        console.log(err);
         }
       });
   
@@ -129,10 +134,10 @@ router.delete("/:date", (req, res, next) => {
     });
   });
   
-//return picture for provided date
+//return picture for provided date and userId
 router.get("/:date", (req, res, next) => {
     //if day is created, return imagePath for it
-    Day.find({date: req.params.date}).then((days) => {
+    Day.find({date: req.params.date, user: req.userId}).then((days) => {
       res.status(200).json({
         imagePath: days[0].imagePath
       });
