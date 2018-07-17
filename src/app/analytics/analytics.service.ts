@@ -3,9 +3,9 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class AnalyticsService implements OnInit {
-    fetchedExeData: Array<any>;
-    dates;
-    maxWeights;
+    private fetchedExeData: Array<any>;
+    dates : Array<any>;
+    maxWeights : Array<any>;
 
 
     constructor(private http: HttpClient) {}
@@ -14,12 +14,16 @@ export class AnalyticsService implements OnInit {
     }
 
     getExeData(exeName: string){
-        this.http.get(`http://localhost:3000/api/analytics/${exeName}`)
-        .subscribe((res: {results:Array<any>})=>{
-            this.fetchedExeData = res.results;
-            this.getDatesArray();
-            this.getMaxWeightsArray();
+        return new Promise((resolve)=>{
+            this.http.get(`http://localhost:3000/api/analytics/${exeName}`)
+            .subscribe((res: {results:Array<any>})=>{
+                this.fetchedExeData = res.results;
+                this.getDatesArray();
+                this.getMaxWeightsArray();
+                resolve();
+            });
         });
+
     }
 
     getDatesArray () {
@@ -46,5 +50,13 @@ export class AnalyticsService implements OnInit {
             return Math.max.apply(Math, set);
         });
         this.maxWeights = setsArrayMax;
+    }
+
+    getDates(){
+        return this.dates;
+    }
+
+    getWeights(){
+        return this.maxWeights;
     }
 }
