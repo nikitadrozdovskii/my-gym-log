@@ -6,6 +6,7 @@ const imageRoutes = require("./routes/imageRoutes");
 const exesRoutes = require("./routes/exesRoutes");
 const authRoutes = require("./routes/authRoutes");
 const checkAuth = require("./middleware/checkAuth");
+const Day = require("./models/day");
 
 const app = express();
 
@@ -66,6 +67,16 @@ app.use((req, res, next) => {
       }
 });
 
+
+app.get("/api/analytics/:exeName", checkAuth, (req, res, next) => {
+  console.log("Collecting data for " + req.params.exeName);
+  // Day.find({user: req.userId}).then((results) => {
+  //   console.log(results);
+  // });
+  res.status(200).json({
+    dates: [], weights: []
+  });
+});
 
 app.use("/api/image", checkAuth, imageRoutes);
 app.use("/api/exes", checkAuth, exesRoutes);
