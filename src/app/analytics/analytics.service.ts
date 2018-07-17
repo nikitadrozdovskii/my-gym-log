@@ -18,12 +18,23 @@ export class AnalyticsService implements OnInit {
             this.http.get(`http://localhost:3000/api/analytics/${exeName}`)
             .subscribe((res: {results:Array<any>})=>{
                 this.fetchedExeData = res.results;
+                this.sortByDate(this.fetchedExeData);
                 this.getDatesArray();
                 this.getMaxWeightsArray();
                 resolve();
             });
         });
 
+    }
+
+    sortByDate(days: Array<any>) {
+        days.sort(function(date1, date2){
+            const d1 = new Date(Object.keys(date1)[0]);
+            const d2 = new Date(Object.keys(date2)[0]);
+            if (d1<d2)    return -1;
+            else if(d1>d2) return  1;
+            else return  0;
+          });
     }
 
     getDatesArray () {
@@ -34,7 +45,6 @@ export class AnalyticsService implements OnInit {
     }
 
     getMaxWeightsArray () {
-        console.log(this.fetchedExeData);
         const setsArray = this.fetchedExeData.map((day) => {
             const tempDay = JSON.parse(JSON.stringify(day));
             const sets = Object.values(tempDay)[0][0].sets;
@@ -44,7 +54,6 @@ export class AnalyticsService implements OnInit {
             });
             return mappedSets;
         });
-        console.log(setsArray);
         //sets with only weights mapped to find max weights
         const setsArrayMax = setsArray.map((set: Array<number>) => {
             return Math.max.apply(Math, set);
