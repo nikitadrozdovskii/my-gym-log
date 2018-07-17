@@ -12,7 +12,7 @@ export class AnalyticsService implements OnInit {
 
     getMaxWeightData(exeName: string){
         this.http.get(`http://localhost:3000/api/analytics/${exeName}`)
-        .subscribe((res: {dates:Array<string>, weights: Array<number>})=>{
+        .subscribe((res: {results:Array<any>})=>{
             console.log(res);
         });
     }

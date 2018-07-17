@@ -11,7 +11,7 @@ export class AnalyticsComponent implements OnInit {
   constructor(private anService: AnalyticsService) { }
 
   ngOnInit() {
-    this.anService.getMaxWeightData('Bench');
+    this.anService.getExeData('Bench');
   }
 
 

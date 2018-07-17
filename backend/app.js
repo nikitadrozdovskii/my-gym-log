@@ -69,12 +69,37 @@ app.use((req, res, next) => {
 
 
 app.get("/api/analytics/:exeName", checkAuth, (req, res, next) => {
-  console.log("Collecting data for " + req.params.exeName);
-  // Day.find({user: req.userId}).then((results) => {
-  //   console.log(results);
-  // });
-  res.status(200).json({
-    dates: [], weights: []
+  // console.log("Collecting data for " + req.params.exeName);
+  //get all days for this user
+  Day.find({user: req.userId})
+  .then((results) => {
+    //map resuts to get rid of user Id and date Id
+    const filteredForName = results.map((day) => {
+      const tempDay = JSON.parse(JSON.stringify(day));
+      const outDay = {};
+      // filter tempDay exes to get only the ones that match requested exe name
+      tempExes = tempDay.exes.filter((exe) => {
+        if(exe.name === req.params.exeName) {
+          return true;
+        }
+      }); 
+      // console.log(tempExes);
+      tempDay.exes = tempExes;
+      outDay[tempDay.date] = tempDay.exes;
+      return outDay;
+    });
+    //remove dates with no exercise found
+    const filteredNonEmpty = filteredForName.filter((day) => {
+      if (Object.values(day)[0].length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    // console.log(filteredNonEmpty);
+    res.status(200).json({
+      results: filteredNonEmpty
+    });
   });
 });
 
