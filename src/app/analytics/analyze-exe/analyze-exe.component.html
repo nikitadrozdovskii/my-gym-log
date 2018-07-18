@@ -3,11 +3,17 @@
     <form  #signupForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="exeName">Exercise Name</label>
-          <input type="text" class="form-control" id="exeName" placeholder="Enter exercise"  [(ngModel)]="exe1" name="exe1">
+          <input type="text" class="form-control" id="exeName" placeholder="Enter exercise" [class.is-invalid]="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)"  [(ngModel)]="exe1" name="exe1" #exe1Input="ngModel"  required>
+          <div class="invalid-feedback" *ngIf="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)">
+              Exercise cannot be empty.
+            </div>
           <small id="emailHelp" class="form-text text-muted">Start by selecting an exercise</small>
         </div>
-        <button type="submit" class="btn btn-primary">Get insights</button>
+        <button *ngIf="exe1Input.valid" type="submit" class="btn btn-primary" >Get insights</button>
       </form>
+      <div class="alert alert-warning mt-2" role="alert" *ngIf="errorMessage">
+          No results for given exercise, please make sure you entered the name correctly.
+      </div>
   </div>
 </div>
 <div class="row">
