@@ -14,7 +14,9 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   // exe1: string;
   exeCounter = 0;
   canvas;
+  chart;
   ctx;
+  colorScheme = ['#50514f','#f25f5c','#ffe066','#247ba0', '#70c1b3'];
   // private dates1;
   // private weights1;
   ngOnInit() {
@@ -47,7 +49,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
       }
       this.canvas = document.getElementById('myChart');
       this.ctx = this.canvas.getContext('2d');
-      let chart = new Chart(this.ctx, {
+      this.chart = new Chart(this.ctx, {
         "type":"line",
         "data":{"labels":dates,
         "datasets":[{"label":name,"data":weights,
@@ -62,6 +64,26 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
             }]
           }
         }});
+    this.addData(["2018-07-24", "2018-07-28"], [80,90], "Biceps");
+    this.addData(["2018-07-28", "2018-08-01", "2018-08-05"], [200,250,260], "Legs");
   }
+
+  addData(labels: Array<string>, data: Array<number>, name: string) {
+    //for each label in existing lables array, push null onto the new dataarray
+    this.exeCounter++;
+    const newDataArray = [];
+    this.chart.data.labels.forEach(() => {newDataArray.push(null)});
+    data.forEach((d) => {
+      newDataArray.push(d);
+    });
+    //push dates onto labels array
+    labels.forEach((label) => {
+      this.chart.data.labels.push(label);
+    });
+
+    this.chart.data.datasets.push({"label": name, "data": newDataArray, "fill":false, "borderColor": this.colorScheme[this.exeCounter]});
+    this.chart.update();
+    
+}
   
 }
