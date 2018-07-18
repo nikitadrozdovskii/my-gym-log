@@ -10,7 +10,7 @@ import { AnalyticsService } from '../analytics.service';
 export class AnalyzeExeComponent implements OnInit, AfterViewInit {
 
   constructor(private anService: AnalyticsService) { }
-
+  exe1: string;
   canvas;
   ctx;
   private dates;
@@ -19,11 +19,15 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    
+  }
+
+  onSubmit() {
     this.plot();
   }
 
   plot(){
-    this.anService.getExeData('Bench').then(()=>{;
+    this.anService.getExeData(this.exe1).then(()=>{;
       this.dates = this.anService.getDates();
       this.weights = this.anService.getWeights();
       this.canvas = document.getElementById('myChart');
@@ -35,7 +39,14 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
         "fill":false,
         "borderColor":"rgb(75, 192, 192)",
         "lineTension":0.1}]},
-        "options":{}});
+        "options":{
+          scales: {
+            xAxes: [{
+              type:'time',
+              distribution: 'linear'
+            }]
+          }
+        }});
     });
 
   }
