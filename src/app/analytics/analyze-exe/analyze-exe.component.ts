@@ -18,6 +18,8 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   ctx;
   colorScheme = ['#50514f','#f25f5c','#ffe066','#247ba0', '#70c1b3'];
   mindate;
+  maxWeights = [];
+  workoutVolumes = [];
   // private dates1;
   // private weights1;
   ngOnInit() {
@@ -30,8 +32,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   //use AnalyticsService to send request to server, check if there is response, accordingly
   //either display an error or call plot method to plot the first chart
   onSubmit(formName) {
-    // this.dates1 = null;
-    // this.weights1 = null;
+    //if it is first exercise, use plot method, else use addData method
     if (this.exeCounter === 0){
       this.anService.getExeData(formName.value).then(()=>{
         const dates = this.anService.getDates();
@@ -42,7 +43,13 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
           },3500);
           return;
         }
+        //plot max weights by default, but get Volume also
         const weights = this.anService.getMaxWeights();
+        const workoutVolume = this.anService.getWorkoutVolume();
+        //store max weights and volume datasets for future use
+        this.maxWeights.push(weights);
+        this.workoutVolumes.push(workoutVolume);
+
         const name = formName.value;
         this.plot(dates, weights, name);
       });
@@ -50,8 +57,15 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
       this.anService.getExeData(formName.value).then(()=>{
         const dates = this.anService.getDates();
         const weights = this.anService.getMaxWeights();
+        const workoutVolume = this.anService.getWorkoutVolume();
+        //store max weights dataset for future use
+        this.maxWeights.push(weights);
+        this.workoutVolumes.push(workoutVolume);
+
         const name = formName.value;
         this.addData(dates, weights, name);
+        console.log(this.workoutVolumes);
+        console.log(this.chart.data.datasets);
       });
     }
 
@@ -84,6 +98,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
         }});
         this.chart.update();
         this.exeCounter++;
+        // this.chart.data.datasets[0].data
   }
 
   //add 2nd+ exercise to the graph
@@ -98,7 +113,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
     }
     //for each label in existing lables array, push null onto the new dataarray
     const newDataArray = [];
-    this.chart.data.labels.forEach(() => {newDataArray.push(null)});
+    // this.chart.data.labels.forEach(() => {newDataArray.push(null)});
     data.forEach((d) => {
       newDataArray.push(d);
     });
@@ -120,6 +135,23 @@ subtractMonths(number) {
     this.chart.options.scales.xAxes[0].time.min = this.mindate;
     this.chart.update();
   }
+}
+
+//swtich datasets in graph to Max Weights or Volume while keeping exercise labels and order
+switchData(option: string) {
+  if (option==='max'){
+    // this.chart.data.datasets.forEach((exe)=>{
+    //   exe.data = 
+    // });
+    for (let i=0;i<this.chart.data.datasets.length;i++){
+      this.chart.data.datasets[i].data = this.maxWeights[i];
+    }
+  } else {
+    for (let i=0;i<this.chart.data.datasets.length;i++){
+      this.chart.data.datasets[i].data = this.workoutVolumes[i];
+    }
+  }
+  this.chart.update();
 }
 
 }
