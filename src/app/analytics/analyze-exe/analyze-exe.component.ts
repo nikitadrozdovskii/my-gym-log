@@ -58,9 +58,23 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
         const dates = this.anService.getDates();
         const weights = this.anService.getMaxWeights();
         const workoutVolume = this.anService.getWorkoutVolume();
+
+        //prepend nulls for existing labels:
+        const newWeights = [];
+        this.chart.data.labels.forEach(() => {newWeights.push(null)});
+        weights.forEach((d) => {
+          newWeights.push(d);
+        });
+        const newWorkoutVolume = [];
+        this.chart.data.labels.forEach(() => {newWorkoutVolume.push(null)});
+        workoutVolume.forEach((d) => {
+          newWorkoutVolume.push(d);
+        });
+
         //store max weights dataset for future use
-        this.maxWeights.push(weights);
-        this.workoutVolumes.push(workoutVolume);
+        this.maxWeights.push(newWeights);
+        this.workoutVolumes.push(newWorkoutVolume);
+
 
         const name = formName.value;
         this.addData(dates, weights, name);
@@ -113,7 +127,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
     }
     //for each label in existing lables array, push null onto the new dataarray
     const newDataArray = [];
-    // this.chart.data.labels.forEach(() => {newDataArray.push(null)});
+    this.chart.data.labels.forEach(() => {newDataArray.push(null)});
     data.forEach((d) => {
       newDataArray.push(d);
     });

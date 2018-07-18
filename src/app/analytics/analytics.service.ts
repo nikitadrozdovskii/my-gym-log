@@ -67,7 +67,7 @@ export class AnalyticsService implements OnInit {
         const outArray = this.fetchedExeData.map((day) => {
             let setVolume = 0;
             Object.values(day)[0][0].sets.forEach((set) => {
-                setVolume += +set.weight;
+                setVolume += +set.weight * +set.reps;
             });
             return setVolume;
         });
