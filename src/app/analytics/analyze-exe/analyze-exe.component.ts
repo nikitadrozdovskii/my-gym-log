@@ -26,7 +26,8 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    
+    this.canvas = document.getElementById('myChart');
+    this.ctx = this.canvas.getContext('2d');
   }
 
   //use AnalyticsService to send request to server, check if there is response, accordingly
@@ -90,8 +91,6 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   plot(dates: Array<string>, weights: Array<number>, name: string){
       //set default mindate of -1 months
       this.subtractMonths(1);
-      this.canvas = document.getElementById('myChart');
-      this.ctx = this.canvas.getContext('2d');
       this.chart = new Chart(this.ctx, {
         "type":"line",
         "data":{"labels":dates,
@@ -168,4 +167,13 @@ switchData(option: string) {
   this.chart.update();
 }
 
+reset() {
+  this.chart.destroy();
+  this.chart=null;
+  console.log(this.chart);
+  this.exeCounter = 0;
+  this.mindate = null;
+  this.maxWeights.length = 0;
+  this.workoutVolumes.length = 0;
+}
 }
