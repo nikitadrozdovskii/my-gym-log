@@ -7,7 +7,6 @@
           <div class="invalid-feedback" *ngIf="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)">
               Exercise cannot be empty.
             </div>
-          <small id="emailHelp" class="form-text text-muted">Start by selecting an exercise</small>
         </div>
         <button *ngIf="exe1Input.valid && exeCounter===0" type="submit" class="btn btn-primary" >Add exercise</button>
         <button *ngIf="exe1Input.valid && exeCounter>0" type="submit" class="btn btn-primary" >Add another exercise</button>
