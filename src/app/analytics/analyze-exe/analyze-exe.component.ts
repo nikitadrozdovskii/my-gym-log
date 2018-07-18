@@ -42,14 +42,14 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
           },3500);
           return;
         }
-        const weights = this.anService.getWeights();
+        const weights = this.anService.getMaxWeights();
         const name = formName.value;
         this.plot(dates, weights, name);
       });
     } else {
       this.anService.getExeData(formName.value).then(()=>{
         const dates = this.anService.getDates();
-        const weights = this.anService.getWeights();
+        const weights = this.anService.getMaxWeights();
         const name = formName.value;
         this.addData(dates, weights, name);
       });

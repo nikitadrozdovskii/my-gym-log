@@ -6,6 +6,7 @@ export class AnalyticsService implements OnInit {
     private fetchedExeData: Array<any>;
     dates : Array<any>;
     maxWeights : Array<any>;
+    workoutVolume: Array<number>;
 
 
     constructor(private http: HttpClient) {}
@@ -21,6 +22,7 @@ export class AnalyticsService implements OnInit {
                 this.sortByDate(this.fetchedExeData);
                 this.getDatesArray();
                 this.getMaxWeightsArray();
+                this.getWorkoutVolumeArray();
                 resolve();
             });
         });
@@ -61,11 +63,28 @@ export class AnalyticsService implements OnInit {
         this.maxWeights = setsArrayMax;
     }
 
+    getWorkoutVolumeArray() {
+        const outArray = this.fetchedExeData.map((day) => {
+            let setVolume = 0;
+            Object.values(day)[0][0].sets.forEach((set) => {
+                setVolume += +set.weight;
+            });
+            return setVolume;
+        });
+        this.workoutVolume = outArray;
+    }
+
     getDates(){
         return this.dates;
     }
 
-    getWeights(){
+    getMaxWeights(){
         return this.maxWeights;
     }
+
+    getWorkoutVolume(){
+        return this.workoutVolume;
+    }
+
+
 }
