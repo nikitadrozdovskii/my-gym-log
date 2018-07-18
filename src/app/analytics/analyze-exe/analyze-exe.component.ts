@@ -11,11 +11,12 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
 
   constructor(private anService: AnalyticsService) { }
   errorMessage: string;
-  exe1: string;
+  // exe1: string;
+  exeCounter = 0;
   canvas;
   ctx;
-  private dates;
-  private weights;
+  // private dates1;
+  // private weights1;
   ngOnInit() {
   }
 
@@ -23,18 +24,22 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
     
   }
 
-  onSubmit() {
-    this.dates = null;
-    this.weights = null;
-    this.plot();
+  onSubmit(formName) {
+    // this.dates1 = null;
+    // this.weights1 = null;
+    this.anService.getExeData(formName.value).then(()=>{;
+      const dates = this.anService.getDates();
+      const weights = this.anService.getWeights();
+      const name = formName.value;
+      this.plot(dates, weights, name);
+      this.exeCounter++;
+    });
+    
   }
 
-  plot(){
-    this.anService.getExeData(this.exe1).then(()=>{;
-      this.dates = this.anService.getDates();
-      this.weights = this.anService.getWeights();
+  plot(dates: Array<string>, weights: Array<number>, name: string){
       //if there were no results
-      if (this.dates.length===0) {
+      if (dates.length===0) {
         this.errorMessage = "No results for given exercise, please make sure you entered the name correctly.";
         setTimeout(() => {
           this.errorMessage = null;
@@ -44,8 +49,8 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
       this.ctx = this.canvas.getContext('2d');
       let chart = new Chart(this.ctx, {
         "type":"line",
-        "data":{"labels":this.dates,
-        "datasets":[{"label":this.exe1,"data":this.weights,
+        "data":{"labels":dates,
+        "datasets":[{"label":name,"data":weights,
         "fill":false,
         "borderColor":"rgb(75, 192, 192)",
         "lineTension":0.1}]},
@@ -57,8 +62,6 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
             }]
           }
         }});
-    });
-
   }
   
 }

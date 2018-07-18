@@ -1,15 +1,16 @@
 <div class="row">
   <div class="col-md-12">
-    <form  #signupForm="ngForm" (ngSubmit)="onSubmit()">
+    <form  #signupForm="ngForm" (ngSubmit)="onSubmit(exe1Input)">
         <div class="form-group">
-          <label for="exeName">Exercise Name</label>
+          <label for="exeName">Add exercise to graph, enter name:</label>
           <input type="text" class="form-control" id="exeName" placeholder="Enter exercise" [class.is-invalid]="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)"  [(ngModel)]="exe1" name="exe1" #exe1Input="ngModel"  required>
           <div class="invalid-feedback" *ngIf="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)">
               Exercise cannot be empty.
             </div>
           <small id="emailHelp" class="form-text text-muted">Start by selecting an exercise</small>
         </div>
-        <button *ngIf="exe1Input.valid" type="submit" class="btn btn-primary" >Get insights</button>
+        <button *ngIf="exe1Input.valid && exeCounter===0" type="submit" class="btn btn-primary" >Add exercise</button>
+        <button *ngIf="exe1Input.valid && exeCounter>0" type="submit" class="btn btn-primary" >Add another exercise</button>
       </form>
       <div class="alert alert-warning mt-2" role="alert" *ngIf="errorMessage">
           No results for given exercise, please make sure you entered the name correctly.
@@ -18,7 +19,7 @@
 </div>
 <div class="row">
   <div class="col-md-8">
-      <div [ngStyle]="{'display': dates ? block : hidden}">
+      <div [ngStyle]="{'display': dates1 ? block : hidden}">
           <canvas id="myChart" width="100" height="100"></canvas>
           </div>
   </div>
