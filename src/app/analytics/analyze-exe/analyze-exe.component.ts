@@ -17,6 +17,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   chart;
   ctx;
   colorScheme = ['#50514f','#f25f5c','#ffe066','#247ba0', '#70c1b3'];
+  mindate;
   // private dates1;
   // private weights1;
   ngOnInit() {
@@ -26,6 +27,8 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
     
   }
 
+  //use AnalyticsService to send request to server, check if there is response, accordingly
+  //either display an error or call plot method to plot the first chart
   onSubmit(formName) {
     // this.dates1 = null;
     // this.weights1 = null;
@@ -55,14 +58,10 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
     
   }
 
+  //plot first exercise
   plot(dates: Array<string>, weights: Array<number>, name: string){
-      //if there were no results
-      // if (dates.length===0) {
-      //   this.errorMessage = "No results for given exercise, please make sure you entered the name correctly.";
-      //   setTimeout(() => {
-      //     this.errorMessage = null;
-      //   },3500);
-      // }
+      //set default mindate of -1 months
+      this.subtractMonths(1);
       this.canvas = document.getElementById('myChart');
       this.ctx = this.canvas.getContext('2d');
       this.chart = new Chart(this.ctx, {
@@ -76,17 +75,18 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
           scales: {
             xAxes: [{
               type:'time',
-              distribution: 'linear'
+              distribution: 'linear',
+              time: {
+                 min: this.mindate
+              }
             }]
           }
         }});
-        console.log(this.exeCounter);
-
+        this.chart.update();
         this.exeCounter++;
-    // this.addData(["2018-07-24", "2018-07-28"], [80,90], "Biceps");
-    // this.addData(["2018-07-28", "2018-08-01", "2018-08-05"], [200,250,260], "Legs");
   }
 
+  //add 2nd+ exercise to the graph
   addData(labels: Array<string>, data: Array<number>, name: string) {
     //if no exes found, do not plot, display error message
     if (labels.length===0) {
@@ -109,9 +109,17 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
 
     this.chart.data.datasets.push({"label": name, "data": newDataArray, "fill":false, "borderColor": this.colorScheme[this.exeCounter%5]});
     this.chart.update();
-    console.log(this.exeCounter);
     this.exeCounter++;
-        
 }
-  
+
+subtractMonths(number) {
+  let now = new Date(Date.now());
+  now.setMonth(now.getMonth() - number);
+  this.mindate = now;
+  if (this.chart){
+    this.chart.options.scales.xAxes[0].time.min = this.mindate;
+    this.chart.update();
+  }
+}
+
 }

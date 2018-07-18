@@ -18,7 +18,18 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-      <div [ngStyle]="{'display': dates1 ? block : hidden}">
+      <div class="btn-group btn-group-toggle mt-2" data-toggle="buttons" *ngIf="chart">
+          <label class="btn btn-secondary active" (click)="subtractMonths(1)">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked > Last month
+          </label>
+          <label class="btn btn-secondary" (click)="subtractMonths(3)">
+            <input type="radio" name="options" id="option2" autocomplete="off"> 3m
+          </label>
+          <label class="btn btn-secondary" (click)="subtractMonths(6)">
+            <input type="radio" name="options" id="option3" autocomplete="off"> 6m
+          </label>
+        </div>
+      <div style="display:block">
           <canvas id="myChart"></canvas>
           </div>
   </div>
