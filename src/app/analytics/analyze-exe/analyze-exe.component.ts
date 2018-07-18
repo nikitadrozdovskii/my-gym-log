@@ -29,13 +29,23 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   onSubmit(formName) {
     // this.dates1 = null;
     // this.weights1 = null;
-    this.anService.getExeData(formName.value).then(()=>{;
-      const dates = this.anService.getDates();
-      const weights = this.anService.getWeights();
-      const name = formName.value;
-      this.plot(dates, weights, name);
-      this.exeCounter++;
-    });
+    if (this.exeCounter === 0){
+      this.anService.getExeData(formName.value).then(()=>{
+        const dates = this.anService.getDates();
+        const weights = this.anService.getWeights();
+        const name = formName.value;
+        this.plot(dates, weights, name);
+        this.exeCounter++;
+      });
+    } else {
+      this.anService.getExeData(formName.value).then(()=>{
+        const dates = this.anService.getDates();
+        const weights = this.anService.getWeights();
+        const name = formName.value;
+        this.addData(dates, weights, name);
+      });
+    }
+
     
   }
 
@@ -64,8 +74,8 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
             }]
           }
         }});
-    this.addData(["2018-07-24", "2018-07-28"], [80,90], "Biceps");
-    this.addData(["2018-07-28", "2018-08-01", "2018-08-05"], [200,250,260], "Legs");
+    // this.addData(["2018-07-24", "2018-07-28"], [80,90], "Biceps");
+    // this.addData(["2018-07-28", "2018-08-01", "2018-08-05"], [200,250,260], "Legs");
   }
 
   addData(labels: Array<string>, data: Array<number>, name: string) {
