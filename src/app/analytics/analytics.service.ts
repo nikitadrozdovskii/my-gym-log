@@ -1,5 +1,8 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
+import {environment} from "../../environments/environment";
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable()
 export class AnalyticsService implements OnInit {
@@ -16,7 +19,7 @@ export class AnalyticsService implements OnInit {
 
     getExeData(exeName: string){
         return new Promise((resolve)=>{
-            this.http.get(`http://localhost:3000/api/analytics/${exeName}`)
+            this.http.get(`${BACKEND_URL}/analytics/${exeName}`)
             .subscribe((res: {results:Array<any>})=>{
                 this.fetchedExeData = res.results;
                 this.sortByDate(this.fetchedExeData);

@@ -2,7 +2,9 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import {environment} from "../environments/environment";
 
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
     providedIn: 'root'
@@ -40,7 +42,7 @@ import { Router } from '@angular/router';
 
     signup(email: string, password: string) {
       return new Promise((resolve, reject) => {
-        this.http.post('http://localhost:3000/api/auth/signup', {email, password})
+        this.http.post(`${BACKEND_URL}/auth/signup`, {email, password})
         .subscribe((res: {message: string}) => {
           resolve();
         }, (error) => {
@@ -53,7 +55,7 @@ import { Router } from '@angular/router';
     //set it in token attribute, setTimeout for it to expire in provided expiration
     //time. Save token and expiration date(and time) in local storage
     login(email: string, password: string) {
-      this.http.post('http://localhost:3000/api/auth/login', {email, password})
+      this.http.post(`${BACKEND_URL}/auth/login`, {email, password})
       .subscribe((res: {token: string, expiresIn: string}) => {
         this.token = res.token;
         this.loginSource.next({status: true, user: email});
