@@ -2,6 +2,9 @@
 <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
   {{errorMessage}}
 </div>
+<div class="alert alert-success" role="alert" *ngIf="successMessage">
+  {{successMessage}}
+</div>
 <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="loginInput1">Email address</label>

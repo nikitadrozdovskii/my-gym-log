@@ -10,6 +10,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   email: string;
   password: string; 
   errorMessage: string;
+  successMessage: string;
   subscription;
   constructor(private authService: AuthService) {
    }
@@ -28,6 +29,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.authService.signup(this.email, this.password);
+    this.authService.signup(this.email, this.password).then(()=>{
+      this.successMessage = `Account for ${this.email} is successfully created! Logging you in.`;
+      setTimeout(() => {
+        this.successMessage = null;
+        this.authService.login(this.email, this.password);
+      },3000);
+    }
+    );
   }
 }

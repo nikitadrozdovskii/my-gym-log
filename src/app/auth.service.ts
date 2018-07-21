@@ -39,12 +39,14 @@ import { Router } from '@angular/router';
     }
 
     signup(email: string, password: string) {
+      return new Promise((resolve, reject) => {
         this.http.post('http://localhost:3000/api/auth/signup', {email, password})
         .subscribe((res: {message: string}) => {
-          // console.log(res.message);
+          resolve();
         }, (error) => {
             this.authErrorSource.next('This email appears to be in use. Please use a different one.');
         });
+      });
     }
 
     //send post requrest with email/password, if there is a match, receive a token
