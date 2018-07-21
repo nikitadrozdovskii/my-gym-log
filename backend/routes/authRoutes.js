@@ -43,7 +43,7 @@ router.post("/login", (req, res, next) => {
             // if user and password match, return JWT
             const token = jwt.sign(
                 { email: users[0].email, userId: users[0]._id },
-                "secret",
+                process.env.SECRET,
                 { expiresIn: "1hr"}
             ); 
             // return token and expiration time in ms
