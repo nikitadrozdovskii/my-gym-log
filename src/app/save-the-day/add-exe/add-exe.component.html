@@ -1,50 +1,57 @@
-<h3 *ngIf="!editMode">Add exercise</h3>
-<h3 *ngIf="editMode">Edit exercise : {{exe.name}}</h3>
-
-<form #addExeForm="ngForm" novalidate>
-  <div class="row">
-    <div class="col-md-2">
-      <div class="form-group">
-        <label for="exerciseName" class="form-label">Exercise name:</label>
-        <input type="text" class="form-control" [class.is-invalid]="!nameValid" id="exerciseName" [(ngModel)]="exe.name" name="name" (input)="validateName($event)" required>
-        <div *ngIf="!nameValid" class="alert alert-danger" role="alert">
-          Cannot be empty
+<div class="card" [class.border-warning]="editMode">
+  <div class="card-header" [class.bg-warning]="editMode">
+    <h3 *ngIf="editMode">Edit exercise : {{exe.name}}</h3>
+    <h3 *ngIf="!editMode">Add exercise</h3>
+  </div>
+  <div class="card-body">
+      <form #addExeForm="ngForm" novalidate >
+        <div class="row">
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="exerciseName" class="form-label">Exercise name:</label>
+              <input type="text" class="form-control" [class.is-invalid]="!nameValid" id="exerciseName" [(ngModel)]="exe.name" name="name" (input)="validateName($event)" required>
+              <div *ngIf="!nameValid" class="alert alert-danger" role="alert">
+                Cannot be empty
+              </div>
+            </div>
+          </div>
+          <div class="col-md-10">
+            <label for="customRange2">Number of sets: {{numberOfSets}}</label>
+            <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)" (touchend)="changeNumberOfSets($event)">
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-10">
-      <label for="customRange2">Number of sets: {{numberOfSets}}</label>
-      <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)" (touchend)="changeNumberOfSets($event)">
-    </div>
+        <div class="row" *ngIf="this.exe.sets.length">
+          <div class="col-md-2"></div>
+          <div class="col-md-5"><h5>Reps</h5></div>
+          <div class="col-md-5"><h5>Weight</h5></div>
+      
+        </div>
+      
+        <!--&lt;!&ndash;FOR TESTING Constraint validation API&ndash;&gt;-->
+        <!--<div class="row">-->
+          <!--<div class="col-md-12">-->
+            <!--<p>-->
+              <!--<label for="mail">-->
+                <!--<span>Please enter an email address:</span>-->
+                <!--<input (input)="check($event)" type="number" id="mail" name="mail">-->
+                <!--<span class="error" aria-live="polite"></span>-->
+              <!--</label>-->
+            <!--</p>-->
+          <!--</div>-->
+        <!--</div>-->
+      
+      
+        <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" [setEditData]="set"
+                     (setUpdated)="onSetUpdated($event)" (setValidityChange)="onSetValidityChange($event);" #setInputs></app-add-set>
+        <button *ngIf="this.exe.sets.length && this.entireFormValid && !editMode" class="btn btn-primary" (click)="onSubmit()">Add exercise</button>
+        <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn btn-primary" (click)="onEdit()">Edit exercise</button>
+        <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn secondary mx-2" (click)="editMode=false">Cancel edit</button>
+        <div *ngIf="!this.entireFormValid" class="alert alert-danger" role="alert">
+          Please fix form errors before adding exercise
+        </div>
+      </form>
   </div>
-  <div class="row" *ngIf="this.exe.sets.length">
-    <div class="col-md-2"></div>
-    <div class="col-md-5"><h5>Reps</h5></div>
-    <div class="col-md-5"><h5>Weight</h5></div>
+  
+</div>
 
-  </div>
-
-  <!--&lt;!&ndash;FOR TESTING Constraint validation API&ndash;&gt;-->
-  <!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-      <!--<p>-->
-        <!--<label for="mail">-->
-          <!--<span>Please enter an email address:</span>-->
-          <!--<input (input)="check($event)" type="number" id="mail" name="mail">-->
-          <!--<span class="error" aria-live="polite"></span>-->
-        <!--</label>-->
-      <!--</p>-->
-    <!--</div>-->
-  <!--</div>-->
-
-
-  <app-add-set *ngFor="let set of exe.sets; let i = index" [setIndex]="i" [setEditData]="set"
-               (setUpdated)="onSetUpdated($event)" (setValidityChange)="onSetValidityChange($event);" #setInputs></app-add-set>
-  <button *ngIf="this.exe.sets.length && this.entireFormValid && !editMode" class="btn btn-primary" (click)="onSubmit()">Add exercise</button>
-  <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn btn-primary" (click)="onEdit()">Edit exercise</button>
-  <button *ngIf="this.exe.sets.length && this.entireFormValid && editMode" class="btn secondary mx-2" (click)="editMode=false">Cancel edit</button>
-  <div *ngIf="!this.entireFormValid" class="alert alert-danger" role="alert">
-    Please fix form errors before adding exercise
-  </div>
-</form>
 
