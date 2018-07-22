@@ -3,7 +3,7 @@
     <form  #signupForm="ngForm" (ngSubmit)="onSubmit(exe1Input)">
         <div class="form-group">
           <label for="exeName">Add exercise to graph, enter name:</label>
-          <input type="text" class="form-control" id="exeName" placeholder="Enter exercise" [class.is-invalid]="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)"  [(ngModel)]="exe1" name="exe1" #exe1Input="ngModel"  required>
+          <input type="text" class="form-control" id="exeName" placeholder="Enter exercise" [class.is-invalid]="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)"  ngModel name="exe1" #exe1Input="ngModel"  required>
           <div class="invalid-feedback" *ngIf="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)">
               Exercise cannot be empty.
             </div>

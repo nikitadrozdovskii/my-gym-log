@@ -11,7 +11,7 @@ export class SaveTheDayComponent implements OnInit, OnDestroy {
 
   exes: Exe[] = [];
   serverErrorMessage: string = null;
-  private date: string;
+  date: string;
   subscription1;
   subscription2;
 
