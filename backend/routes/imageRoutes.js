@@ -19,14 +19,17 @@ const storage = multer.diskStorage({
       let error = new Error('Invalid MIME type');
   
       //making sure duplicates for the same date not stored if they have different extensions
-      const jpg = `images/${file.originalname}-${req.userId}.jpg`;
-      const png = `images/${file.originalname}-${req.userId}.png`;
+      const jpg = `backend/images/${file.originalname}-${req.userId}.jpg`;
+      const png = `backend/images/${file.originalname}-${req.userId}.png`;
+
+      console.log(req.userId);
   
       let isDuplicate = false;
       // Check if the file exists. If png is passed, and jpg exists, needs to delete jpg version and vice versa
       //(if extension is the same, file will be overwritten implicitly)
       fs.access(jpg, fs.constants.F_OK, (err) => {
         console.log(`${file} ${err ? 'Alternative file does not exist' : 'JPG version already exists'}`);
+        console.log(err);
         if (!err) {
           if (mimeTypeMap[file.mimetype] === 'png'){
             console.log('passed png is duplicate of existing jpg');
@@ -41,6 +44,7 @@ const storage = multer.diskStorage({
   
       fs.access(png, fs.constants.F_OK, (err) => {
         console.log(`${file} ${err ? ' Alternative file does not exist' : 'PNG version already exists'}`);
+        console.log(err);
         if (!err) {
           if (mimeTypeMap[file.mimetype] === 'jpg'){
             console.log('passed jpg is duplicate of existing png');
@@ -56,7 +60,7 @@ const storage = multer.diskStorage({
       if (isValid && !isDuplicate) {
         error = null;
       }
-      cb(error, 'images');
+      cb(error, 'backend/images');
     },
     filename: (req, file, cb) => {
       const name = file.originalname.split(' ').join('-');
@@ -107,7 +111,7 @@ router.use((err, req, res, next) => {
 router.delete("/:date", (req, res, next) => {
     Day.findOneAndUpdate({date: req.params.date, user: req.userId}, {imagePath:''}).then(() => {
       
-      fs.unlink(`images/${req.params.date}-${req.userId}.png`, (err) => {
+      fs.unlink(`backend/images/${req.params.date}-${req.userId}.png`, (err) => {
         if (!err){
           res.status(200).json({
             message: "Image successfully deleted from DB and server"
@@ -117,7 +121,7 @@ router.delete("/:date", (req, res, next) => {
 
         }
       });
-      fs.unlink(`images/${req.params.date}-${req.userId}.jpg`, (err) => {
+      fs.unlink(`backend/images/${req.params.date}-${req.userId}.jpg`, (err) => {
         if (!err){
           res.status(200).json({
             message: "Image successfully deleted from DB and server"
