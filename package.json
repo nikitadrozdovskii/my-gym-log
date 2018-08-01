@@ -9,9 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "monitor-server": "nodemon ./backend/server.js",
-
-    "compress-css": "node-sass style.css style.comp.css --output-style compressed",
-    "compile-sass": "node-sass node_modules/bootstrap/scss/bootstrap.scss style.css"
+    "compile-bootstrap": "node-sass node_modules/bootstrap/scss/bootstrap.scss style.css -w"
   },
   "private": true,
   "dependencies": {
