@@ -1,7 +1,7 @@
 <div class="card" [class.border-warning]="editMode">
   <div class="card-header" [class.bg-warning]="editMode">
-    <h3 *ngIf="editMode">Edit exercise : {{exe.name}}</h3>
-    <h3 *ngIf="!editMode">Add exercise</h3>
+    <span *ngIf="editMode">EDIT EXERCISE : {{exe.name}}</span>
+    <span *ngIf="!editMode">ADD EXERCISE</span>
   </div>
   <div class="card-body">
       <form #addExeForm="ngForm" novalidate >

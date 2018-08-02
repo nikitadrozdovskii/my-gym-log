@@ -106,3 +106,40 @@ input[type=date] {
         background: transparent;
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+//FORM STYLES
+///////////////////////////////////////////////////////////////////////////////////
+
+.form-control {
+    border: 1px solid $white;
+    color: $white;
+    background-color: $secondary-grey;
+    -webkit-tap-highlight-color: $secondary-grey;
+    margin-bottom:3px;
+
+
+    &:focus{
+        background-color: $main-grey;
+        color: $white;
+        border: 2px solid $orange;
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+//RANGE STYLES
+///////////////////////////////////////////////////////////////////////////////////
+
+input[type=range]::-webkit-slider-thumb {
+    background: $orange;
+  }
+
+input[type=range]::-moz-range-thumb{
+background: $orange;
+}
+
+input[type=range]::-ms-thumb {
+background: $orange;
+}
+
+  
