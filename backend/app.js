@@ -31,10 +31,10 @@ app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
 
 //provide images staticly 
-app.use("/images", express.static(path.join("backend/images")));
+// app.use("/images", express.static(path.join("backend/images")));
 //for deployment
-// app.use("/images", express.static(path.join(__dirname, "images")));
-// app.use("/", express.static(path.join(__dirname, "angular")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/", express.static(path.join(__dirname, "angular")));
 
 
 //set CORS headers
@@ -118,9 +118,9 @@ app.use(function(err, req, res, next){
 });
 
 
-//for deployment
-// app.use((req, res, next) => {
-//   res.sendFile(path.join(__dirname, "angular", "index.html"));
-// })
+// for deployment
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "angular", "index.html"));
+})
 
 module.exports = app;

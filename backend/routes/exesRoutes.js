@@ -10,7 +10,7 @@ router.post("/:date", (req, res, next) => {
     Day.find({date: req.params.date, user: req.userId}).then((day)=>{ //query for user as well
       if (day.length === 0) {
         console.log('no day found');
-        const newDay = new Day({date: req.params.date, exes: [{name: req.body.name, sets: req.body.sets}], user: req.userId}); //add userId as well
+        const newDay = new Day({date: req.params.date, exes: [{name: req.body.nametoLowerCase(), sets: req.body.sets}], user: req.userId}); //add userId as well
         newDay.save().then((createdExe) => {
           res.status(200).json({
             exe: createdExe,
@@ -85,7 +85,7 @@ router.delete("/:date/:id", (req, res, next) => {
 router.put("/:date/:id", (req, res, next) => {
   Day.find({date: req.params.date, user: req.userId}).then((days) => { //query for user as well
     // console.log(days[0].exes.id(req.params.id));
-    days[0].exes.id(req.params.id).set({name: req.body.name, sets: req.body.sets});
+    days[0].exes.id(req.params.id).set({name: req.body.name.toLowerCase(), sets: req.body.sets});
     days[0].save().then(() => {
       res.status(200).json({
         message: "Server successfully updated exe"
