@@ -164,3 +164,21 @@ background: $orange;
         padding:7px;
     }
 }
+
+.card-add {
+    height: 100% !important;
+}
+
+//GRID STYLES
+
+.add-pic {
+    @media(min-width: 768px){
+        padding-right:0 !important;
+    }
+}
+
+.add-exe {
+    @media(min-width: 768px){
+        padding-left:0 !important;   
+    }
+}

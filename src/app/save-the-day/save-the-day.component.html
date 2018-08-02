@@ -17,8 +17,15 @@
     </div>
   
     <div *ngIf='date'>
-      <app-prog-pic [picDate]="this.date"></app-prog-pic>   
-      <app-add-exe [AddExeDate]='this.date'></app-add-exe>
+      <div class="row">
+        <div class="col-md-6 add-pic">
+          <app-prog-pic [picDate]="this.date"></app-prog-pic>   
+        </div>
+        <div class="col-md-6 add-exe">
+          <app-add-exe [AddExeDate]='this.date'></app-add-exe>
+        </div>
+
+      </div>
       <app-exe-detail *ngFor="let exe of exes; let i=index" [detailedExe]="exe" [ExeIndex]="i" (deleteExe)="onDeleteExe($event)"></app-exe-detail>
     </div>
   </div>

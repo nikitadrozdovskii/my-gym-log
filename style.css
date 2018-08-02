@@ -6383,3 +6383,14 @@ input[type=range]::-ms-thumb {
     .badge-secondary {
       height: 50%;
       padding: 7px; } }
+
+.card-add {
+  height: 100% !important; }
+
+@media (min-width: 768px) {
+  .add-pic {
+    padding-right: 0 !important; } }
+
+@media (min-width: 768px) {
+  .add-exe {
+    padding-left: 0 !important; } }

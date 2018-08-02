@@ -1,4 +1,4 @@
-<div class="card" [class.border-warning]="editMode">
+<div class="card card-add" [class.border-warning]="editMode">
   <div class="card-header" [class.bg-warning]="editMode">
     <span *ngIf="editMode">EDIT EXERCISE : {{exe.name}}</span>
     <span *ngIf="!editMode">ADD EXERCISE</span>
@@ -6,7 +6,7 @@
   <div class="card-body">
       <form #addExeForm="ngForm" novalidate >
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-12">
             <div class="form-group">
               <label for="exerciseName" class="form-label">Exercise name:</label>
               <input type="text" class="form-control" [class.is-invalid]="!nameValid" id="exerciseName" [(ngModel)]="exe.name" name="name" (input)="validateName($event)" required>
@@ -15,7 +15,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-10">
+          <div class="col-12">
             <label for="customRange2">Number of sets: {{numberOfSets}}</label>
             <input type="range" class="custom-range" min="0" max="20" id="customRange2" (mouseup)="changeNumberOfSets($event)" (touchend)="changeNumberOfSets($event)">
           </div>
