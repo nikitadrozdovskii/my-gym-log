@@ -16,7 +16,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   canvas;
   chart;
   ctx;
-  colorScheme = ['#50514f','#f25f5c','#ffe066','#247ba0', '#70c1b3'];
+  colorScheme = ['#ffed59','#2667f9','#16e6d8','#f44cff', '#46e49a'];
   mindate;
   maxWeights = [];
   workoutVolumes = [];
@@ -26,6 +26,7 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    Chart.defaults.global.defaultFontColor = '#f2f2f0';
     this.canvas = document.getElementById('myChart');
     this.ctx = this.canvas.getContext('2d');
   }
@@ -105,7 +106,15 @@ export class AnalyzeExeComponent implements OnInit, AfterViewInit {
               distribution: 'linear',
               time: {
                  min: this.mindate
-              }
+              },
+            gridLines: {
+              color: 'rgba(242,242,240,0.07)'
+            }
+            }],
+            yAxes: [{
+            gridLines: {
+              color: 'rgba(242,242,240,0.07)'
+            }
             }]
           }
         }});
