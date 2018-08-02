@@ -6358,6 +6358,13 @@ input[type=date] {
     color: #ff5e3a;
     background: transparent; }
 
+.btn.btn-secondary {
+  background-color: #0D0E12 !important;
+  border-color: transparent !important; }
+  .btn.btn-secondary.active {
+    background-color: #ff5e3a !important;
+    border-color: transparent !important; }
+
 .form-control {
   border: 1px solid #f2f2f0;
   color: #f2f2f0;

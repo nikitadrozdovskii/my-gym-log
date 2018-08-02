@@ -121,6 +121,18 @@ input[type=date] {
     }
 }
 
+.btn.btn-secondary {
+
+    background-color: $main-grey !important;
+    border-color: transparent !important;
+
+    &.active{
+        background-color: $orange !important;
+        border-color: transparent !important;
+    }
+
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 //FORM STYLES
 ///////////////////////////////////////////////////////////////////////////////////

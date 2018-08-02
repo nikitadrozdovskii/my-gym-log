@@ -1,54 +1,62 @@
-<div class="row">
-  <div class="col-md-12">
-    <form  #signupForm="ngForm" (ngSubmit)="onSubmit(exe1Input)">
-        <div class="form-group">
-          <label for="exeName">Add exercise to graph, enter name:</label>
-          <input type="text" class="form-control" id="exeName" placeholder="Enter exercise" [class.is-invalid]="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)"  ngModel name="exe1" #exe1Input="ngModel"  required>
-          <div class="invalid-feedback" *ngIf="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)">
-              Exercise cannot be empty.
-            </div>
-        </div>
-        <button *ngIf="exe1Input.valid && exeCounter===0" type="submit" class="btn btn-primary" >Add exercise</button>
-        <button *ngIf="exe1Input.valid && exeCounter>0" type="submit" class="btn btn-primary" >Add another exercise</button>
-      </form>
-      <div class="alert alert-warning mt-2" role="alert" *ngIf="errorMessage">
-          No results for given exercise, please make sure you entered the name correctly.
-      </div>
-  </div>
-</div>
-<div class="row" *ngIf="chart">
-  <div class="col-lg-3 col-md-4">
-      <div class="btn-group btn-group-toggle mt-2" data-toggle="buttons">
-          <label class="btn btn-secondary active" (click)="subtractMonths(1)">
-            <input type="radio" name="options" id="option1" autocomplete="off" checked > Last month
-          </label>
-          <label class="btn btn-secondary" (click)="subtractMonths(3)">
-            <input type="radio" name="options" id="option2" autocomplete="off"> 3m
-          </label>
-          <label class="btn btn-secondary" (click)="subtractMonths(6)">
-            <input type="radio" name="options" id="option3" autocomplete="off"> 6m
-          </label>
-        </div>
-  </div>
-  <div class="col-lg-2 col-md-4" >
-      <div class="btn-group btn-group-toggle mt-2" data-toggle="buttons" >
-          <label class="btn btn-secondary active" (click)="switchData('max')">
-            <input type="radio" name="options" autocomplete="off" checked > Max Weight
-          </label>
-          <label class="btn btn-secondary" (click)="switchData('volume')">
-            <input type="radio" name="options" autocomplete="off"> Workout Volume
-          </label>
-        </div>
-  </div>
-  <div class="col-lg-2 offset-lg-2" >
-    <button (click)="reset()" class="btn btn-secondary mt-2" >Reset</button>
-  </div>
-</div>
-<small class="form-text text-muted" *ngIf="chart">Click point on a graph to see more info. Click exercise name on top to exclude/include it.</small>
-<div class="row">
-  <div class="col-md-12">
-      <div style="display:block">
-          <canvas id="myChart"></canvas>
+
+<div class="card">
+  <div class="card-body">
+      <form  #signupForm="ngForm" (ngSubmit)="onSubmit(exe1Input)">
+          <div class="form-group">
+            <label for="exeName">Add exercise to graph, enter name:</label>
+            <input type="text" class="form-control" id="exeName" placeholder="Enter exercise" [class.is-invalid]="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)"  ngModel name="exe1" #exe1Input="ngModel"  required>
+            <div class="invalid-feedback" *ngIf="exe1Input.invalid  && (exe1Input.dirty || exe1Input.touched)">
+                Exercise cannot be empty.
+              </div>
           </div>
+          <button *ngIf="exe1Input.valid && exeCounter===0" type="submit" class="btn btn-primary" >Add exercise</button>
+          <button *ngIf="exe1Input.valid && exeCounter>0" type="submit" class="btn btn-primary" >Add another exercise</button>
+        </form>
+        <div class="alert alert-warning mt-2" role="alert" *ngIf="errorMessage">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i> &nbsp;No results for given exercise, please make sure you entered the name correctly.
+        </div>
   </div>
 </div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row" *ngIf="chart">
+            <div class="col-lg-3 col-md-4">
+                <div class="btn-group btn-group-toggle mt-2" data-toggle="buttons">
+                    <label class="btn btn-secondary active" (click)="subtractMonths(1)">
+                      <input type="radio" name="options" id="option1" autocomplete="off" checked > Last month
+                    </label>
+                    <label class="btn btn-secondary" (click)="subtractMonths(3)">
+                      <input type="radio" name="options" id="option2" autocomplete="off"> 3m
+                    </label>
+                    <label class="btn btn-secondary" (click)="subtractMonths(6)">
+                      <input type="radio" name="options" id="option3" autocomplete="off"> 6m
+                    </label>
+                  </div>
+            </div>
+            <div class="col-lg-2 col-md-4" >
+                <div class="btn-group btn-group-toggle mt-2" data-toggle="buttons" >
+                    <label class="btn btn-secondary active" (click)="switchData('max')">
+                      <input type="radio" name="options" autocomplete="off" checked > Max Weight
+                    </label>
+                    <label class="btn btn-secondary" (click)="switchData('volume')">
+                      <input type="radio" name="options" autocomplete="off"> Workout Volume
+                    </label>
+                  </div>
+            </div>
+            <div class="col-lg-2 offset-lg-2" >
+              <button (click)="reset()" class="btn btn-secondary mt-2" >Reset</button>
+            </div>
+          </div>
+          <small class="form-text" *ngIf="chart">Click point on a graph to see more info. Click exercise name on top to exclude/include it.</small>
+          <div class="row">
+            <div class="col-md-12">
+                <div style="display:block">
+                    <canvas id="myChart"></canvas>
+                    </div>
+            </div>
+          </div>
+    </div>
+  </div>
+
+
