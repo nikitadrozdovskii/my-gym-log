@@ -21,7 +21,7 @@ router.post("/:date", (req, res, next) => {
         });
       } else {
         // console.log(day[0]);
-        day[0].exes.push({name: req.body.name, sets: req.body.sets});
+        day[0].exes.push({name: req.body.name.toLowerCase(), sets: req.body.sets});
         day[0].save().then((createdExe) => {
           res.status(200).json({
             exe: createdExe,

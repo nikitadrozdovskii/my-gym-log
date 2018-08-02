@@ -71,7 +71,7 @@ app.use((req, res, next) => {
       }
 });
 
-
+//get data for graph 
 app.get("/api/analytics/:exeName", checkAuth, (req, res, next) => {
   // console.log("Collecting data for " + req.params.exeName);
   //get all days for this user
@@ -83,7 +83,7 @@ app.get("/api/analytics/:exeName", checkAuth, (req, res, next) => {
       const outDay = {};
       // filter tempDay exes to get only the ones that match requested exe name
       tempExes = tempDay.exes.filter((exe) => {
-        if(exe.name === req.params.exeName) {
+        if(exe.name === req.params.exeName.toLowerCase()) {
           return true;
         }
       }); 
