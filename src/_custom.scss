@@ -96,7 +96,8 @@ input[type=date] {
 //BUTTON STYLES
 ///////////////////////////////////////////////////////////////////////////////////
   
-.btn-outline-primary, .btn-outline-dark, .btn-outline-secondary {
+.btn-outline-primary, .btn-outline-dark, .btn-outline-secondary, .btn-primary {
+    background:transparent;
     border-color: $white;
     color: $white;
 
@@ -126,6 +127,16 @@ input[type=date] {
     }
 }
 
+.input-group-text {
+    color:$white;
+    background-color:$secondary-grey;
+
+    &:hover{
+        background-color: $main-grey;
+        color:$orange;
+    }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 //RANGE STYLES
 ///////////////////////////////////////////////////////////////////////////////////
@@ -142,4 +153,14 @@ input[type=range]::-ms-thumb {
 background: $orange;
 }
 
-  
+
+.badge-secondary {
+    color: $white;
+    background-color: $main-grey;
+    font-size: 1rem;
+    @media (min-width: 768px){
+
+        height:50%;
+        padding:7px;
+    }
+}

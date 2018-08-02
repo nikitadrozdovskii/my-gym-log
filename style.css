@@ -6339,10 +6339,11 @@ input[type=date] {
   border: 1px solid #ff5e3a;
   color: #f2f2f0; }
 
-.btn-outline-primary, .btn-outline-dark, .btn-outline-secondary {
+.btn-outline-primary, .btn-outline-dark, .btn-outline-secondary, .btn-primary {
+  background: transparent;
   border-color: #f2f2f0;
   color: #f2f2f0; }
-  .btn-outline-primary:hover, .btn-outline-dark:hover, .btn-outline-secondary:hover {
+  .btn-outline-primary:hover, .btn-outline-dark:hover, .btn-outline-secondary:hover, .btn-primary:hover {
     border-color: #ff5e3a;
     color: #ff5e3a;
     background: transparent; }
@@ -6358,6 +6359,13 @@ input[type=date] {
     color: #f2f2f0;
     border: 2px solid #ff5e3a; }
 
+.input-group-text {
+  color: #f2f2f0;
+  background-color: #1C1C20; }
+  .input-group-text:hover {
+    background-color: #0D0E12;
+    color: #ff5e3a; }
+
 input[type=range]::-webkit-slider-thumb {
   background: #ff5e3a; }
 
@@ -6366,3 +6374,12 @@ input[type=range]::-moz-range-thumb {
 
 input[type=range]::-ms-thumb {
   background: #ff5e3a; }
+
+.badge-secondary {
+  color: #f2f2f0;
+  background-color: #0D0E12;
+  font-size: 1rem; }
+  @media (min-width: 768px) {
+    .badge-secondary {
+      height: 50%;
+      padding: 7px; } }
