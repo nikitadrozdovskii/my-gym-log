@@ -6342,7 +6342,7 @@ input[type=date] {
   padding: 0 3px;
   color: #f2f2f0; }
 
-.alert-primary {
+.alert-primary, .alert-warning {
   background-color: #1C1C20;
   border: 1px solid #ff5e3a;
   color: #f2f2f0; }

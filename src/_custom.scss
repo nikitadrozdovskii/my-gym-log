@@ -93,10 +93,14 @@ input[type=date] {
     color: $white;  
   }
 
-  .alert-primary {
-      background-color: $secondary-grey;
-      border: 1px solid $orange;
-      color:$white;
+///////////////////////////////////////////////////////////////////////////////////
+//ALERT STYLES
+///////////////////////////////////////////////////////////////////////////////////
 
-  }
+.alert-primary, .alert-warning {
+    background-color: $secondary-grey;
+    border: 1px solid $orange;
+    color:$white;
+}
+
   
