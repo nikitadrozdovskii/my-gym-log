@@ -3,13 +3,19 @@ $secondary-grey: #1C1C20;
 $white: #f2f2f0;
 $orange: #ff5e3a;
 
+
+
+///////////////////////////////////////////////////////////////////////////////////
+//NAVBAR STYLES
+///////////////////////////////////////////////////////////////////////////////////
+
 .navbar {
     background-color:$main-grey !important;
     border-bottom: 0.2rem solid $orange;
 }
 
 body {
-    background-color: $secondary-grey !important;
+    background-color: $main-grey !important;
     font-family: 'Source Sans Pro', sans-serif; 
     color:$white;
 }
@@ -19,7 +25,11 @@ body {
 }
 
 .dropdown-menu{
-    background-color: $white;
+    background-color: $secondary-grey;
+}
+
+.dropdown-item {
+    color: $white;
 }
 
 .nav-link{
@@ -52,3 +62,41 @@ body {
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#ff5e3a' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 }
+
+///////////////////////////////////////////////////////////////////////////////////
+//CARD STYLES
+///////////////////////////////////////////////////////////////////////////////////
+
+.card {
+    border:none;
+
+    &-header{
+        background-color: $secondary-grey;
+        border-bottom: 1px solid $orange; 
+    }
+
+    &-body{
+        background-color: $secondary-grey;
+    }
+}
+
+input[type=date] {
+    font-family: inherit;
+    width: 100%;
+    font-family:  inherit;
+    text-transform: uppercase;
+    background-color: $main-grey;
+    outline: none;
+    border:  none;
+    border-radius: 3px;
+    padding: 0 3px;
+    color: $white;  
+  }
+
+  .alert-primary {
+      background-color: $secondary-grey;
+      border: 1px solid $orange;
+      color:$white;
+
+  }
+  
