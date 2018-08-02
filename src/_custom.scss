@@ -82,6 +82,19 @@ input[type=date] {
     color: $white;  
   }
 
+ .card-add {
+    height: 100% !important;
+}
+
+.card-header {
+    font-weight: 600;
+}
+
+.list-group-item {
+    background-color: $secondary-grey;
+    border: 1px solid $white;
+}
+
 ///////////////////////////////////////////////////////////////////////////////////
 //ALERT STYLES
 ///////////////////////////////////////////////////////////////////////////////////
@@ -165,10 +178,6 @@ background: $orange;
     }
 }
 
-.card-add {
-    height: 100% !important;
-}
-
 //GRID STYLES
 
 .add-pic {
@@ -182,3 +191,4 @@ background: $orange;
         padding-left:0 !important;   
     }
 }
+
