@@ -1,17 +1,17 @@
-$raisin-black: #231F20;
-$dark-pur: #272e4f;
-$dark-blue: #2c365d;
-$egg-shell: #f2f2f0;
-$pale-caramel: #ff5e3a;
+$main-grey: #0D0E12;
+$secondary-grey: #1C1C20;
+$white: #f2f2f0;
+$orange: #ff5e3a;
 
 .navbar {
-    background-color:$dark-pur !important;
-    border-bottom: 0.2rem solid $pale-caramel;
+    background-color:$main-grey !important;
+    border-bottom: 0.2rem solid $orange;
 }
 
 body {
-    background-color: $egg-shell !important;
+    background-color: $secondary-grey !important;
     font-family: 'Source Sans Pro', sans-serif; 
+    color:$white;
 }
 
 #logo{
@@ -19,34 +19,34 @@ body {
 }
 
 .dropdown-menu{
-    background-color: $egg-shell;
+    background-color: $white;
 }
 
 .nav-link{
-    color: $egg-shell !important;
+    color: $white !important;
 
     &:hover{
-        color: $pale-caramel !important;
+        color: $orange !important;
     }
 }
 
 .navbar-text {
-    color: $egg-shell !important;
+    color: $white !important;
 } 
 
 .btn-outline-secondary {
-    border-color: $egg-shell;
-    color: $egg-shell;
+    border-color: $white;
+    color: $white;
 
     &:hover {
-        border-color: $pale-caramel;
-        color: $pale-caramel;
+        border-color: $orange;
+        color: $orange;
         background: transparent;
     }
 }
 
 .navbar-toggler {
-    border-color:$pale-caramel !important;
+    border-color:$orange !important;
 }
 
 .navbar-toggler-icon {
