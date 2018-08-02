@@ -1,17 +1,19 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand">{{title}}</a>
+      <a class="navbar-brand">
+        <img src="/assets/logo.svg" id="logo" alt="">
+      </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" *ngIf="loggedIn">
-              <a class="nav-link" routerLinkActive="active" routerLink="save">Save The Day<span class="sr-only"></span></a>
+              <a class="nav-link" routerLinkActive="active" routerLink="save">SAVE THE DAY<span class="sr-only"></span></a>
             </li>
             <li class="nav-item dropdown"  *ngIf="loggedIn">
               <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Analyze
+                ANALYZE
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <a class="dropdown-item" routerLink="analyze/compare-pics">Compare Progress Pictures</a>

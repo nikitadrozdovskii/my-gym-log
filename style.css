@@ -6283,4 +6283,37 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 .navbar {
-  background-color: black !important; }
+  background-color: #272e4f !important;
+  border-bottom: 0.2rem solid #ff5e3a; }
+
+body {
+  background-color: #f2f2f0 !important;
+  font-family: 'Source Sans Pro', sans-serif; }
+
+#logo {
+  height: 5rem; }
+
+.dropdown-menu {
+  background-color: #f2f2f0; }
+
+.nav-link {
+  color: #f2f2f0 !important; }
+  .nav-link:hover {
+    color: #ff5e3a !important; }
+
+.navbar-text {
+  color: #f2f2f0 !important; }
+
+.btn-outline-secondary {
+  border-color: #f2f2f0;
+  color: #f2f2f0; }
+  .btn-outline-secondary:hover {
+    border-color: #ff5e3a;
+    color: #ff5e3a;
+    background: transparent; }
+
+.navbar-toggler {
+  border-color: #ff5e3a !important; }
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#ff5e3a' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important; }

@@ -1,3 +1,54 @@
+$raisin-black: #231F20;
+$dark-pur: #272e4f;
+$dark-blue: #2c365d;
+$egg-shell: #f2f2f0;
+$pale-caramel: #ff5e3a;
+
 .navbar {
-    background-color:black !important;
+    background-color:$dark-pur !important;
+    border-bottom: 0.2rem solid $pale-caramel;
+}
+
+body {
+    background-color: $egg-shell !important;
+    font-family: 'Source Sans Pro', sans-serif; 
+}
+
+#logo{
+    height:5rem;
+}
+
+.dropdown-menu{
+    background-color: $egg-shell;
+}
+
+.nav-link{
+    color: $egg-shell !important;
+
+    &:hover{
+        color: $pale-caramel !important;
+    }
+}
+
+.navbar-text {
+    color: $egg-shell !important;
+} 
+
+.btn-outline-secondary {
+    border-color: $egg-shell;
+    color: $egg-shell;
+
+    &:hover {
+        border-color: $pale-caramel;
+        color: $pale-caramel;
+        background: transparent;
+    }
+}
+
+.navbar-toggler {
+    border-color:$pale-caramel !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#ff5e3a' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
 }
