@@ -44,17 +44,6 @@ body {
     color: $white !important;
 } 
 
-.btn-outline-secondary {
-    border-color: $white;
-    color: $white;
-
-    &:hover {
-        border-color: $orange;
-        color: $orange;
-        background: transparent;
-    }
-}
-
 .navbar-toggler {
     border-color:$orange !important;
 }
@@ -103,4 +92,17 @@ input[type=date] {
     color:$white;
 }
 
+///////////////////////////////////////////////////////////////////////////////////
+//BUTTON STYLES
+///////////////////////////////////////////////////////////////////////////////////
   
+.btn-outline-primary, .btn-outline-dark, .btn-outline-secondary {
+    border-color: $white;
+    color: $white;
+
+    &:hover {
+        border-color: $orange;
+        color: $orange;
+        background: transparent;
+    }
+}

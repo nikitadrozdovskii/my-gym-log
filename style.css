@@ -6308,14 +6308,6 @@ body {
 .navbar-text {
   color: #f2f2f0 !important; }
 
-.btn-outline-secondary {
-  border-color: #f2f2f0;
-  color: #f2f2f0; }
-  .btn-outline-secondary:hover {
-    border-color: #ff5e3a;
-    color: #ff5e3a;
-    background: transparent; }
-
 .navbar-toggler {
   border-color: #ff5e3a !important; }
 
@@ -6346,3 +6338,11 @@ input[type=date] {
   background-color: #1C1C20;
   border: 1px solid #ff5e3a;
   color: #f2f2f0; }
+
+.btn-outline-primary, .btn-outline-dark, .btn-outline-secondary {
+  border-color: #f2f2f0;
+  color: #f2f2f0; }
+  .btn-outline-primary:hover, .btn-outline-dark:hover, .btn-outline-secondary:hover {
+    border-color: #ff5e3a;
+    color: #ff5e3a;
+    background: transparent; }
