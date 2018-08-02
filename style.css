@@ -6344,10 +6344,18 @@ input[type=date] {
   background-color: #1C1C20;
   border: 1px solid #f2f2f0; }
 
-.alert-primary, .alert-warning {
+.alert-primary, .alert-warning, .alert-success {
   background-color: #1C1C20;
   border: 1px solid #ff5e3a;
   color: #f2f2f0; }
+
+.alert-danger {
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  color: #f2f2f0; }
+
+.fa-times {
+  color: #dc3545; }
 
 .btn-outline-primary, .btn-outline-dark, .btn-outline-secondary, .btn-primary {
   background: transparent;

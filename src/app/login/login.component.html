@@ -1,6 +1,6 @@
 <h3 class="mt-2">Login with existing account</h3>
 <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-  {{errorMessage}}
+    <i class="fas fa-times"></i>&nbsp; {{errorMessage}}
 </div>
 <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
