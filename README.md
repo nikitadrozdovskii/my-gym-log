@@ -17,7 +17,7 @@ MongoDB Atlas (with Mongoose), NodeJS (with Express) + few Node packages
 
 * I am a user, I want to see how my weight loss is going. I go to Compare Progress Pictures feature, select a date from a month ago and today to see them side by side and compare.
 
-![Graph use case](readmeGIFS/piccompare.gif)
+![Graph use case](readmeGIFS/piccompare2.gif)
 
 ## Notable features
 * Authentication: app provides sign-up/login functionality with JSON Web Token, that is persisted to local storage upon signing up/logging in. Upon expiration JSON Web Token in local storage is cleared and user is automatically logged out. Backend routes are protected with middleware checking JWT. Frontend routes are protected with Angular Guards while user is not logged in. Passwords are encrypted before being stored in the database.
