@@ -11,6 +11,8 @@ MongoDB Atlas (with Mongoose), NodeJS (with Express) + few Node packages
 
 * I am a user, after going to gym for several months, I want to see what progress I made. I go to Analytics feature and plot 3 of my exercises, that I can see for various time frames and see maximum weight or workout volume for each, on each date performed.
 
+![Graph use case](readmeGIFS/graph.gif)
+
 * I am a user, I want to see how my weight loss is going. I go to Compare Progress Pictures feature, select a date from a month ago and today to see them side by side and compare.
 
 ## Notable features
